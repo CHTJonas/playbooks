@@ -8,6 +8,9 @@
     path: /boot/config.txt
     line: gpu_mem=16
 
+- name: Disable swapfile
+  shell: dphys-swapfile swapoff && dphys-swapfile uninstall && systemctl disable dphys-swapfile
+
 - name: Enable cgroup options in Linux kernel
   lineinfile:
     path: /boot/cmdline.txt

@@ -1,0 +1,5 @@
+[prod]
+raspberry-4    ansible_host=192.168.88.24
+
+[master]
+raspberry-4

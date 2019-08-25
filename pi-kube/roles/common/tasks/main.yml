@@ -1,0 +1,38 @@
+---
+- name: Set timezone to UTC
+  timezone:
+    name: UTC
+
+- name: Reduce GPU memory to 16MB
+  lineinfile:
+    path: /boot/config.txt
+    line: gpu_mem=16
+
+- name: Enable cgroup options in Linux kernel
+  lineinfile:
+    path: /boot/cmdline.txt
+    regexp: '^(((?!cgroup).)*)$'
+    line: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
+    backrefs: yes
+
+- name: Upgrade system
+  apt:
+    force_apt_get: yes
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    upgrade: dist
+    autoclean: yes
+    autoremove: yes
+
+- name: Reboot
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+
+- name: Wait for host to become ready
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 20
+    timeout: 300

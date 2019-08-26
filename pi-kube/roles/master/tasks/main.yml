@@ -1,0 +1,19 @@
+---
+- name: Factory reset Kubernetes
+  shell: kubeadm reset -f
+
+- name: Pull prerequisite Docker images
+  shell: kubeadm config images pull
+
+- name: Initialize Kubernetes
+  shell: kubeadm init --apiserver-advertise-address={{ ansible_default_ipv4.address }} --token={{ token }}
+
+- name: Join Kubernetes cluster
+  shell: kubeadm join --ignore-preflight-errors=all --token {{ token }} {{ ansible_default_ipv4.address }}:6443 --discovery-token-unsafe-skip-ca-verification
+
+- name: Restart kubelet daemon
+  systemd:
+    name: kubelet
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

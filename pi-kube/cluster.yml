@@ -4,3 +4,8 @@
     - common
     - docker
     - kubernetes
+
+- hosts: master
+  become: yes
+  roles:
+    - master

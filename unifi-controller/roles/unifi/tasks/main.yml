@@ -1,0 +1,74 @@
+---
+- name: Set timezone to UTC
+  timezone:
+    name: UTC
+
+- name: Reset firewall
+  ufw:
+    state: reset
+
+- name: Allow SSH traffic
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+
+- name: Allow HTTP traffic
+  ufw:
+    rule: allow
+    port: http
+    proto: tcp
+
+- name: Allow HTTPS traffic
+  ufw:
+    rule: allow
+    port: https
+    proto: tcp
+
+- name: Enable firewall
+  ufw:
+    state: enabled
+
+- name: Upgrade system
+  apt:
+    force_apt_get: yes
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    upgrade: dist
+    autoclean: yes
+    autoremove: yes
+
+- name: Install Docker Compose file
+  copy:
+    src: docker-compose.yml
+    dest: /srv/docker-compose.yml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install Traefik configuration files
+  copy:
+    src: traefik
+    dest: /opt
+    owner: root
+    group: root
+    mode: 0400
+
+- name: Reboot
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+
+- name: Wait for host to become ready
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 20
+    timeout: 300
+
+- name: Poll DNS
+  shell: "sleep 6 && dig unifi.jfis.co.uk"
+
+- name: Spin up Docker containers
+  shell: "cd /srv && docker-compose up -d"

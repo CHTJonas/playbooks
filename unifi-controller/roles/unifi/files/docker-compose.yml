@@ -27,6 +27,7 @@ services:
       - log:/unifi/log
       - init:/unifi/init.d
     environment:
+      RUNAS_UID0: "false"
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
       DB_NAME: unifi

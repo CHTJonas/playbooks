@@ -12,21 +12,6 @@
     rule: limit
     port: ssh
     proto: tcp
-
-- name: Allow HTTP traffic
-  ufw:
-    rule: allow
-    port: http
-    proto: tcp
-
-- name: Allow HTTPS traffic
-  ufw:
-    rule: allow
-    port: https
-    proto: tcp
-
-- name: Enable firewall
-  ufw:
     state: enabled
 
 - name: Upgrade system

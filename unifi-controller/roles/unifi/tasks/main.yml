@@ -9,7 +9,7 @@
 
 - name: Allow SSH traffic
   ufw:
-    rule: limit
+    rule: allow
     port: ssh
     proto: tcp
     state: enabled

@@ -42,6 +42,14 @@
     group: root
     mode: 0400
 
+- name: Touch ACME challenge configuration file
+  file:
+    path: /opt/traefik/acme.json
+    state: touch
+    owner: root
+    group: root
+    mode: 0400
+
 - name: Reboot
   shell: "sleep 5 && reboot"
   async: 1

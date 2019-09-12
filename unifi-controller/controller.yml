@@ -1,5 +1,8 @@
 ---
 - hosts: all
   remote_user: root
+  vars:
+    swap_file_size_mb: '1024'
   roles:
+    - geerlingguy.swap
     - unifi

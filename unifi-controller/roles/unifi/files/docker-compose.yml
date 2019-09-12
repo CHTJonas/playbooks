@@ -1,4 +1,4 @@
-version: '3'
+version: "3.7"
 services:
   mongo:
     image: mongo:3.4
@@ -11,6 +11,7 @@ services:
       - db:/data/db
   unifi-controller:
     image: "jacobalberty/unifi:stable"
+    init: true
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=unifi"
@@ -28,6 +29,7 @@ services:
       - init:/unifi/init.d
     environment:
       RUNAS_UID0: "false"
+      JVM_MAX_HEAP_SIZE: "640M"
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
       DB_NAME: unifi

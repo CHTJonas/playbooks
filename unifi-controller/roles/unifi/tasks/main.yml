@@ -19,10 +19,12 @@
     force_apt_get: yes
     install_recommends: no
     update_cache: yes
-    cache_valid_time: 3600
     upgrade: dist
     autoclean: yes
     autoremove: yes
+
+- name: Install DO metrics agent
+  shell: "curl -sSL https://repos.insights.digitalocean.com/install.sh | bash"
 
 - name: Install Docker Compose file
   copy:

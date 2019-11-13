@@ -1,4 +1,7 @@
 ---
+- name: Stop any pre-existing Docker containers
+  shell: "test -f /srv/docker-compose.yml && cd /srv && docker-compose down"
+
 - name: Set timezone to UTC
   timezone:
     name: UTC

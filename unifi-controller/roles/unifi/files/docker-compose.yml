@@ -10,7 +10,7 @@ services:
     volumes:
       - db:/data/db
   unifi-controller:
-    image: "jacobalberty/unifi:stable"
+    image: "jacobalberty/unifi:5.12.22"
     init: true
     labels:
       - "traefik.enable=true"

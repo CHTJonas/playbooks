@@ -1,1 +1,1 @@
-unifi-controller    ansible_host=unifi.jfis.co.uk
+unifi-controller    ansible_host=pollux.xjupiter.net

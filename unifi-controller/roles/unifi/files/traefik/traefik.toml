@@ -17,12 +17,12 @@ insecureSkipVerify = true
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "unifi.jfis.co.uk"
+domain = "unifi.xjupiter.net"
 watch = true
 exposedByDefault = false
 
 [acme]
-email = "certs@charliejonas.co.uk"
+email = "admin@xjupiter.net"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true

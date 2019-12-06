@@ -1,35 +1,38 @@
+---
 version: "3.7"
+
 services:
   mongo:
     image: mongo:3.4
+    restart: always
     labels:
       - "traefik.enable=false"
     networks:
-      - unifi
-    restart: always
+      - backend
     volumes:
-      - db:/data/db
+      - /opt/mongo/data:/data/db
+
   unifi-controller:
-    image: "jacobalberty/unifi:5.12.35"
+    image: jacobalberty/unifi:5.12.35
+    restart: always
     init: true
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=unifi"
-      - "traefik.frontend.rule=Host:unifi.jfis.co.uk"
+      - "traefik.frontend.rule=Host:unifi.xjupiter.net"
       - "traefik.port=8443"
       - "traefik.protocol=https"
     depends_on:
       - mongo
     networks:
-      - unifi
-    restart: always
+      - backend
     volumes:
-      - data:/unifi/data
-      - log:/unifi/log
-      - init:/unifi/init.d
+      - /opt/unifi/data:/unifi/data
+      - /opt/unifi/log:/unifi/log
+      - /opt/unifi/init:/unifi/init.d
     environment:
       RUNAS_UID0: "false"
-      JVM_MAX_HEAP_SIZE: "640M"
+      JVM_MAX_HEAP_SIZE: "1G"
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
       DB_NAME: unifi
@@ -41,27 +44,22 @@ services:
       - "8880:8880/tcp"   # HTTP portal redirection
       - "8843:8843/tcp"   # HTTPS portal redirection
       - "10001:10001/udp" # AP discovery
+
   traefik:
-    image: traefik
+    image: traefik:v1.7
     command: --docker
+    restart: always
     labels:
       - "traefik.enable=false"
-    restart: always
     ports:
       - "80:80"
       - "443:443"
     networks:
-      - unifi
+      - backend
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /opt/traefik/traefik.toml:/traefik.toml
       - /opt/traefik/acme.json:/acme.json
 
-volumes:
-  db:
-  data:
-  log:
-  init:
-
 networks:
-  unifi:
+  backend:

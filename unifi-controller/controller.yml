@@ -1,9 +1,8 @@
 ---
 - hosts: all
-  remote_user: root
+  become: yes
   vars:
     swap_file_size_mb: '1024'
   roles:
     - geerlingguy.swap
-    - datadog.datadog
     - unifi

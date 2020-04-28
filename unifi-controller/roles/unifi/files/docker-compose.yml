@@ -5,8 +5,6 @@ services:
   mongo:
     image: mongo:3.4
     restart: always
-    labels:
-      - "traefik.enable=false"
     networks:
       - backend
     volumes:
@@ -18,10 +16,15 @@ services:
     init: true
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=unifi"
-      - "traefik.frontend.rule=Host:unifi.xjupiter.net"
-      - "traefik.port=8443"
-      - "traefik.protocol=https"
+      - "traefik.http.routers.unifi-controller.rule=Host(`unifi.xjupiter.net`)"
+      - "traefik.http.routers.unifi-controller.entrypoints=http"
+      - "traefik.http.routers.unifi-controller.middlewares=redirect-insecure@file"
+      - "traefik.http.routers.unifi-controller-secure.rule=Host(`unifi.xjupiter.net`)"
+      - "traefik.http.routers.unifi-controller-secure.entrypoints=https"
+      - "traefik.http.routers.unifi-controller-secure.tls=true"
+      - "traefik.http.routers.unifi-controller-secure.tls.certResolver=xjupiter"
+      - "traefik.http.services.unifi-controller.loadbalancer.server.scheme=https"
+      - "traefik.http.services.unifi-controller.loadbalancer.server.port=8443"
     depends_on:
       - mongo
     networks:
@@ -46,20 +49,18 @@ services:
       - "10001:10001/udp" # AP discovery
 
   traefik:
-    image: traefik:v1.7
-    command: --docker
+    image: traefik:2.1
     restart: always
-    labels:
-      - "traefik.enable=false"
     ports:
       - "80:80"
       - "443:443"
-    networks:
-      - backend
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /opt/traefik/traefik.toml:/traefik.toml
+      - /opt/traefik/conf.toml:/conf.toml
       - /opt/traefik/acme.json:/acme.json
+    networks:
+      - backend
 
 networks:
   backend:

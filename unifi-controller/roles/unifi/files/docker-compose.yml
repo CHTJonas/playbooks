@@ -4,6 +4,7 @@ version: "3.7"
 services:
   mongo:
     image: mongo:3.4
+    command: --wiredTigerCacheSizeGB 0.4
     restart: always
     networks:
       - backend
@@ -35,7 +36,7 @@ services:
       - /opt/unifi/init:/unifi/init.d
     environment:
       RUNAS_UID0: "false"
-      JVM_MAX_HEAP_SIZE: "1G"
+      JVM_MAX_HEAP_SIZE: "768M"
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
       DB_NAME: unifi

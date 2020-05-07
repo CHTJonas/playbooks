@@ -3,7 +3,7 @@ version: "3.7"
 
 services:
   mongo:
-    image: mongo:3.4
+    image: mongo:3.4.24
     command: --wiredTigerCacheSizeGB 0.4
     restart: always
     networks:
@@ -12,7 +12,7 @@ services:
       - /opt/mongo/data:/data/db
 
   unifi-controller:
-    image: jacobalberty/unifi:5.12.35
+    image: jacobalberty/unifi:5.12.66
     restart: always
     init: true
     labels:
@@ -50,7 +50,7 @@ services:
       - "10001:10001/udp" # AP discovery
 
   traefik:
-    image: traefik:2.1
+    image: traefik:2.2.1
     restart: always
     ports:
       - "80:80"

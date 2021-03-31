@@ -50,7 +50,7 @@ services:
       - "10001:10001/udp" # AP discovery
 
   traefik:
-    image: traefik:2.2.1
+    image: traefik:2.4.8
     restart: always
     ports:
       - "80:80"

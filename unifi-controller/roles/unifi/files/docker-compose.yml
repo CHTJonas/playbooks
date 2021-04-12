@@ -22,6 +22,7 @@ services:
       - "traefik.http.routers.unifi-controller.middlewares=redirect-insecure@file"
       - "traefik.http.routers.unifi-controller-secure.rule=Host(`unifi.xjupiter.net`)"
       - "traefik.http.routers.unifi-controller-secure.entrypoints=https"
+      - "traefik.http.routers.unifi-controller-secure.middlewares=hsts-header@file"
       - "traefik.http.routers.unifi-controller-secure.tls=true"
       - "traefik.http.routers.unifi-controller-secure.tls.certResolver=xjupiter"
       - "traefik.http.services.unifi-controller.loadbalancer.server.scheme=https"

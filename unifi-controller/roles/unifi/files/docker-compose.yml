@@ -67,3 +67,7 @@ services:
 
 networks:
   backend:
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: "fd12:4242:4242:1::/64"

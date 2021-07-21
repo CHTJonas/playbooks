@@ -52,7 +52,7 @@ services:
       - "5514:5514/udp"   # Remote logging
 
   traefik:
-    image: traefik:2.4.8
+    image: traefik:2.4.11
     restart: always
     ports:
       - "80:80"

@@ -12,7 +12,7 @@ services:
       - /opt/mongo/data:/data/db
 
   unifi-controller:
-    image: jacobalberty/unifi:v6.5.54
+    image: jacobalberty/unifi:v6.5.55
     restart: always
     init: true
     labels:

@@ -1,0 +1,48 @@
+---
+- name: Install some useful packages
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+    - sudo
+    - mosh
+    - byobu
+    - wget
+    - curl
+    - htop
+    - nano
+    - vim
+    - time
+    - uuid
+    - patch
+    - less
+    - file
+    - software-properties-common
+    - apt-transport-https
+    - git
+    - make
+    - zip
+    - unzip
+    - pigz
+    - zstd
+    - xz-utils
+    - rename
+    - rsync
+    - coreutils
+    - binutils
+    - moreutils
+    - sharutils
+    - dnsutils
+    - net-tools
+    - traceroute
+    - mtr-tiny
+    - telnet
+    - tcpdump
+    - whois
+    - pv
+    - netcat-openbsd
+    - socat
+    - procps
+    - strace
+    - sysstat

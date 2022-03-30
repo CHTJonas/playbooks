@@ -1,0 +1,17 @@
+---
+- hosts: casilda
+  vars:
+  roles:
+    - system
+    - ssh
+    - packages
+    - virt
+    - users
+
+- hosts: florian
+  vars:
+  roles:
+    - system
+    - ssh
+    - packages
+    - users

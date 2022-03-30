@@ -1,0 +1,11 @@
+---
+- import_tasks: useful.yml
+- import_tasks: bloat.yml
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes

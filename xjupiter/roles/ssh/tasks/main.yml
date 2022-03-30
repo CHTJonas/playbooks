@@ -1,0 +1,8 @@
+---
+- name: Install OpenSSH config file
+  ansible.builtin.copy:
+    src: xjupiter.conf
+    dest: /etc/ssh/sshd_config.d/xjupiter.conf
+    owner: root
+    group: root
+    mode: 0644

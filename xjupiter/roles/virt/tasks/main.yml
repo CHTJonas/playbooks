@@ -1,0 +1,14 @@
+---
+- name: Install packages for KVM virtualisation
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+    - qemu
+    - qemu-kvm
+    - qemu-utils
+    - libvirt-daemon-system
+    - libvirt-clients
+    - virtinst
+    - bridge-utils

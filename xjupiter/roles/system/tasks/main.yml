@@ -26,3 +26,16 @@
     enabled: no
     masked: yes
   when: ansible_distribution == 'Ubuntu'
+
+- name: Generate British locales
+  community.general.locale_gen:
+    name: en_GB.UTF-8
+    state: present
+
+- name: Set default system locale
+  ansible.builtin.copy:
+    src: locale
+    dest: /etc/default/locale
+    owner: root
+    group: root
+    mode: 0644

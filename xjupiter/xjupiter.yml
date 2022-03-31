@@ -1,17 +1,14 @@
 ---
-- hosts: casilda
-  vars:
+- hosts: all
+  vars_files:
+    - vault.yml
   roles:
     - system
     - ssh
     - packages
-    - virt
     - users
+    - telegraf
 
-- hosts: florian
-  vars:
+- hosts: casilda
   roles:
-    - system
-    - ssh
-    - packages
-    - users
+    - virt

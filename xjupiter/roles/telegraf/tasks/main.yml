@@ -1,0 +1,97 @@
+---
+- name: Install conntrack kernel modules
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+    - conntrack
+
+- name: Load nf_conntrack kernel module
+  community.general.modprobe:
+    name: nf_conntrack
+    state: present
+
+- name: Set conntrack kernel modules to load at boot
+  ansible.builtin.copy:
+    src: conntrack.conf
+    dest: /etc/modules-load.d/conntrack.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create telegraf group
+  ansible.builtin.group:
+    name: telegraf
+    system: yes
+
+- name: Create telegraf user
+  ansible.builtin.user:
+    name: telegraf
+    password: !
+    group: telegraf
+    groups: ''
+    system: yes
+    create_home: no
+    home: /etc/telegraf
+    shell: /usr/sbin/nologin
+
+- name: Create telegraf config directories
+  ansible.builtin.file:
+    path: /etc/telegraf/telegraf.d
+    recurse: yes
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Install telegraf config file
+  ansible.builtin.template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Install telegraf environment variable file
+  ansible.builtin.template:
+    src: telegraf.j2
+    dest: /etc/default/telegraf
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Download telegraf executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/telegraf-latest-amd64
+    dest: /usr/local/bin/telegraf
+    force: yes
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_architecture == 'x86_64'
+
+- name: Download telegraf executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/telegraf-latest-arm64
+    dest: /usr/local/bin/telegraf
+    force: yes
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_architecture == 'aarch64'
+
+- name: Install telegraf service unit file
+  ansible.builtin.copy:
+    src: telegraf.service
+    dest: /etc/systemd/system/telegraf.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start telegraf and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: 'telegraf'
+    enabled: yes
+    state: started

@@ -1,0 +1,40 @@
+[global_tags]
+#  dc = "ovh-erith"
+
+[agent]
+  hostname = "{{ ansible_host }}"
+
+[[outputs.influxdb]]
+  urls = ["${TELEGRAF_ENDPOINT}"]
+  database = "telegraf"
+  skip_database_creation = true
+  timeout = "30s"
+  username = "${TELEGRAF_USERNAME}"
+  password = "${TELEGRAF_PASSWORD}"
+
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = true
+
+[[inputs.mem]]
+
+[[inputs.swap]]
+
+[[inputs.disk]]
+  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
+
+[[inputs.diskio]]
+
+[[inputs.net]]
+
+[[inputs.conntrack]]
+
+[[inputs.netstat]]
+
+[[inputs.kernel]]
+
+[[inputs.system]]
+
+[[inputs.processes]]

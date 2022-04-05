@@ -1,5 +1,7 @@
 # This file is managed by Ansible
 root:			admin@xjupiter.net
+chtjonas:		charlie@charliejonas.co.uk
+charlie:		chtjonas
 
 abuse:			root
 admin:			root

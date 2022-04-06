@@ -1,4 +1,15 @@
 ---
+- name: Remove default user
+  ansible.builtin.user:
+    name: ubuntu
+    state: absent
+    remove: yes
+
+- name: Remove default group
+  ansible.builtin.group:
+    name: ubuntu
+    state: absent
+
 - name: Add chtjonas group
   ansible.builtin.group:
     name: chtjonas
@@ -12,6 +23,11 @@
     group: chtjonas
     groups: [sudo, adm]
     shell: /bin/bash
+
+- name: Add root SSH authorized_keys
+  ansible.posix.authorized_key:
+    user: root
+    key: https://id.charliejonas.co.uk/secure_authorized_keys
 
 - name: Add chtjonas SSH authorized_keys
   ansible.posix.authorized_key:

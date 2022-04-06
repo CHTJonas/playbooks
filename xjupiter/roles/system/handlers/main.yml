@@ -1,4 +1,4 @@
 ---
-- name: 'Update GRUB'
+- name: Update GRUB
   command:
     cmd: /usr/sbin/update-grub

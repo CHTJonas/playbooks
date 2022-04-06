@@ -5,7 +5,7 @@
     update_cache: yes
     cache_valid_time: 3600
     pkg:
-    - opensmtpd
+      - opensmtpd
 
 - name: Install OpenSMTPD config file
   ansible.builtin.copy:
@@ -15,7 +15,7 @@
     group: root
     mode: 0644
   notify:
-      - Restart OpenSMTPD
+    - Restart OpenSMTPD
 
 - name: Install aliases table file
   ansible.builtin.copy:
@@ -25,7 +25,7 @@
     group: root
     mode: 0644
   notify:
-      - Restart OpenSMTPD
+    - Restart OpenSMTPD
 
 - name: Install secrets table file
   ansible.builtin.template:
@@ -33,6 +33,6 @@
     dest: /var/lib/opensmtpd/secrets
     owner: root
     group: opensmtpd
-    mode: '0640'
+    mode: 0640
   notify:
-      - Restart OpenSMTPD
+    - Restart OpenSMTPD

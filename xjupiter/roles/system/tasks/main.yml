@@ -12,9 +12,9 @@
     dest: '/etc/default/grub.d/disable-rdrand.cfg'
     content: |
       GRUB_CMDLINE_LINUX="nordrand $GRUB_CMDLINE_LINUX"
-    mode: '0644'
+    mode: 0644
   notify:
-      - 'Update GRUB'
+    - Update GRUB
 
 - name: Set timezone to UTC
   timezone:

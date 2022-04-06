@@ -1,19 +1,19 @@
 ---
-- name: 'chtjonas group'
+- name: Add chtjonas group
   ansible.builtin.group:
-    name: 'chtjonas'
+    name: chtjonas
     gid: 1001
 
-- name: 'chtjonas user'
+- name: Add chtjonas user
   ansible.builtin.user:
-    name: 'chtjonas'
-    comment: 'Charlie Jonas'
+    name: chtjonas
+    comment: Charlie Jonas
     uid: 1001
-    group: 'chtjonas'
-    groups: ['sudo', 'adm']
-    shell: '/bin/bash'
+    group: chtjonas
+    groups: [sudo, adm]
+    shell: /bin/bash
 
-- name: 'chtjonas SSH keys'
+- name: Add chtjonas SSH authorized_keys
   ansible.posix.authorized_key:
-    user: 'chtjonas'
-    key: 'https://id.charliejonas.co.uk/authorized_keys'
+    user: chtjonas
+    key: https://id.charliejonas.co.uk/authorized_keys

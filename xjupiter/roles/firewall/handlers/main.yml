@@ -1,0 +1,4 @@
+---
+- name: Reload kernel nf_tables
+  command:
+      cmd: /etc/nftables.conf

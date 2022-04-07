@@ -4,6 +4,7 @@
     - vault.yml
   roles:
     - system
+    - firewall
     - ssh
     - mta
     - packages

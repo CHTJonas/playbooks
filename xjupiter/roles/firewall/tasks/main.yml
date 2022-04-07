@@ -1,0 +1,26 @@
+---
+- name: Install nftables
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - nftables
+
+- name: Create nftables config directory
+  ansible.builtin.file:
+    path: /etc/nftables
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install nftables config file
+  ansible.builtin.copy:
+    src: nftables.conf
+    dest: /etc/nftables.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - Reload kernel nf_tables

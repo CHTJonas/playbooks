@@ -2,3 +2,8 @@
 - name: Update GRUB
   command:
     cmd: /usr/sbin/update-grub
+
+- name: Restart unattended-upgrades.service
+  ansible.builtin.systemd:
+    state: restarted
+    name: unattended-upgrades

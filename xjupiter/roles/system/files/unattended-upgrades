@@ -1,0 +1,11 @@
+// This file is managed by Ansible
+Unattended-Upgrade::AutoFixInterruptedDpkg "false";
+Unattended-Upgrade::MinimalSteps "false";
+Unattended-Upgrade::InstallOnShutdown "false";
+Unattended-Upgrade::Mail "admin@xjupiter.net";
+Unattended-Upgrade::MailReport "on-change";
+Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+Unattended-Upgrade::Automatic-Reboot "false";
+Unattended-Upgrade::OnlyOnACPower "true";
+Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";

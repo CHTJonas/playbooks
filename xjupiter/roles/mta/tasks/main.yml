@@ -1,22 +1,21 @@
 ---
-- name: Install OpenSMTPD and ancillaries
+- name: Install Postfix and ancillaries
   ansible.builtin.apt:
     install_recommends: no
     update_cache: yes
     cache_valid_time: 3600
     pkg:
-      - opensmtpd
+      - postfix
       - bsd-mailx
 
-- name: Install OpenSMTPD config file
-  ansible.builtin.copy:
-    src: smtpd.conf
-    dest: /etc/smtpd.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-    - Restart OpenSMTPD
+- name: Ensure no other MTA is installed
+  ansible.builtin.apt:
+    state: absent
+    purge: yes
+    pkg:
+      - opensmtpd
+      - exim
+      - exim4
 
 - name: Install aliases table file
   ansible.builtin.copy:
@@ -26,14 +25,25 @@
     group: root
     mode: 0644
   notify:
-    - Restart OpenSMTPD
+    - Regenerate alias database
+    - Reload Postfix
 
-- name: Install secrets table file
+- name: Install SASL credentials file
   ansible.builtin.template:
-    src: secrets.j2
-    dest: /var/lib/opensmtpd/secrets
+    src: sasl-credentials.j2
+    dest: /etc/postfix/sasl-credentials
     owner: root
-    group: opensmtpd
+    group: postfix
     mode: 0640
   notify:
-    - Restart OpenSMTPD
+    - Reload Postfix
+
+- name: Install Postfix config file
+  ansible.builtin.template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload Postfix

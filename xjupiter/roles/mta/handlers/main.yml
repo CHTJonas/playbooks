@@ -1,5 +1,9 @@
 ---
-- name: Restart OpenSMTPD
+- name: Regenerate alias database
+  command:
+      cmd: /usr/bin/newaliases
+
+- name: Reload Postfix
   ansible.builtin.systemd:
-    state: restarted
-    name: opensmtpd
+    state: reloaded
+    name: postfix

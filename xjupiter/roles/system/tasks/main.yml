@@ -40,13 +40,14 @@
     group: root
     mode: 0644
 
-- name: Install unattended-upgrades
+- name: Install unattended-upgrades and apticron
   ansible.builtin.apt:
     install_recommends: no
     update_cache: yes
     cache_valid_time: 3600
     pkg:
       - unattended-upgrades
+      - apticron
 
 - name: Configure unattended-upgrades
   copy:
@@ -57,3 +58,11 @@
     mode: 0644
   notify:
     - Restart unattended-upgrades.service
+
+- name: Configure apticron
+  copy:
+    src: apticron.conf
+    dest: /etc/apticron/apticron.conf
+    owner: root
+    group: root
+    mode: 0644

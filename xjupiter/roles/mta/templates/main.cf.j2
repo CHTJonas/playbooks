@@ -1,12 +1,15 @@
 # This file is managed by Ansible
 compatibility_level = 2
+inet_protocols = ipv6
 notify_classes = bounce,delay,policy,protocol,resource,software
 myhostname = {{ ansible_host }}
 mydomain = xjupiter.net
 myorigin = xjupiter.net
+mydestination =
 mynetworks = 127.0.0.0/8 [::1]/128
-alias_database = hash:/etc/aliases
-alias_maps = hash:/etc/aliases
+alias_database =
+alias_maps =
+smtp_generic_maps = regexp:/etc/postfix/generic
 relayhost = smtp-auth.mythic-beasts.com:587
 smtp_sasl_auth_enable = yes
 smtp_sasl_auth_soft_bounce = yes

@@ -1,0 +1,5 @@
+# This file is managed by Ansible
+/^(.+)@{{ ansible_host.split('.')[0] }}$/ $1@xjupiter.net
+/^(.+)@{{ ansible_host }}$/ $1@xjupiter.net
+/^(.+)@localhost$/ $1@xjupiter.net
+/^(.+)@localhost.xjupiter.net$/ $1@xjupiter.net

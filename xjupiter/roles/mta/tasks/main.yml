@@ -17,15 +17,15 @@
       - exim
       - exim4
 
-- name: Install aliases table file
-  ansible.builtin.copy:
-    src: aliases
-    dest: /etc/aliases
+- name: Install generic mapping table file
+  ansible.builtin.template:
+    src: generic.j2
+    dest: /etc/postfix/generic
     owner: root
     group: root
     mode: 0644
   notify:
-    - Regenerate alias database
+    - Regenerate generic mapping database
     - Reload Postfix
 
 - name: Install SASL credentials file

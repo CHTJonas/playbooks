@@ -1,7 +1,7 @@
 ---
-- name: Regenerate alias database
+- name: Regenerate generic mapping database
   command:
-      cmd: /usr/bin/newaliases
+      cmd: /usr/sbin/postmap /etc/postfix/generic
 
 - name: Reload Postfix
   ansible.builtin.systemd:

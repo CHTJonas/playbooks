@@ -1,0 +1,52 @@
+---
+- name: Remove RDRAND disablement
+  ansible.builtin.file:
+    state: absent
+    path: /etc/default/grub.d/disable-rdrand.cfg
+  notify:
+    - Update GRUB
+
+- name: Trust CPU to seed CRNG
+  ansible.builtin.copy:
+    dest: /etc/default/grub.d/random.cfg
+    content: |
+      GRUB_CMDLINE_LINUX="random.trust_cpu=on $GRUB_CMDLINE_LINUX"
+    mode: 0644
+  notify:
+    - Update GRUB
+
+- name: Disable quiet boot
+  ansible.builtin.copy:
+    dest: /etc/default/grub.d/quiet.cfg
+    content: |
+      GRUB_CMDLINE_LINUX_DEFAULT=`echo -n $GRUB_CMDLINE_LINUX_DEFAULT | sed s/quiet//`
+    mode: 0644
+  notify:
+    - Update GRUB
+
+- name: Disable sound
+  ansible.builtin.copy:
+    dest: /etc/default/grub.d/sound.cfg
+    content: |
+      GRUB_CMDLINE_LINUX="nosound $GRUB_CMDLINE_LINUX"
+    mode: 0644
+  notify:
+    - Update GRUB
+
+- name: Disable Bluetooth
+  ansible.builtin.copy:
+    dest: /etc/default/grub.d/bluetooth.cfg
+    content: |
+      GRUB_CMDLINE_LINUX="nobluetooth $GRUB_CMDLINE_LINUX"
+    mode: 0644
+  notify:
+    - Update GRUB
+
+- name: Set Linux boot parameters
+  ansible.builtin.copy:
+    dest: /etc/default/grub.d/xjupiter.cfg
+    content: |
+      GRUB_CMDLINE_LINUX="consoleblank=0 fsck.mode=force $GRUB_CMDLINE_LINUX"
+    mode: 0644
+  notify:
+    - Update GRUB

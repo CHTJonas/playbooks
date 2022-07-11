@@ -1,2 +1,3 @@
 casilda		ansible_user=root ansible_host=casilda.xjupiter.net
 florian		ansible_user=root ansible_host=florian.xjupiter.net
+corcoran	ansible_user=root ansible_host=corcoran.xjupiter.net

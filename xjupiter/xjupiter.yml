@@ -4,6 +4,7 @@
     - vault.yml
   roles:
     - system
+    - getty
     - firewall
     - ssh
     - mta

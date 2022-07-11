@@ -1,0 +1,24 @@
+---
+- name: Create getty service override directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/getty@tty1.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install getty@tty1 override file
+  ansible.builtin.copy:
+    src: autologin.conf
+    dest: /etc/systemd/system/getty@tty1.service.d/autologin.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Do not clear screen when starting tty1
+  ansible.builtin.copy:
+    src: noclear.conf
+    dest: /etc/systemd/system/getty@tty1.service.d/noclear.conf
+    owner: root
+    group: root
+    mode: 0644

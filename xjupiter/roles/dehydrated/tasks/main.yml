@@ -1,0 +1,65 @@
+---
+- name: Install dehydrated
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - dehydrated
+
+- name: Check that domains.txt exists
+  ansible.builtin.stat:
+    path: /etc/dehydrated/domains.txt
+  register: domains_txt_stat_result
+
+- name: Create domains.txt if it doesn't already exist
+  ansible.builtin.file:
+    path: /etc/dehydrated/domains.txt
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+  when: not domains_txt_stat_result.stat.exists
+
+- name: Install ip.sh config file
+  ansible.builtin.copy:
+    src: ip.sh
+    dest: /etc/dehydrated/conf.d/ip.sh
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install mail.sh config file
+  ansible.builtin.copy:
+    src: mail.sh
+    dest: /etc/dehydrated/conf.d/mail.sh
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install hook.sh config file
+  ansible.builtin.copy:
+    src: hook.sh
+    dest: /etc/dehydrated/conf.d/hook.sh
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install dehydrated-hook.sh script
+  ansible.builtin.copy:
+    src: dehydrated-hook.sh
+    dest: /usr/local/scripts/dehydrated-hook.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Accept CAs terms of service
+  shell: /usr/bin/dehydrated --register --accept-terms
+
+- name: Add credentials file for dehydrated-hook.sh script
+  ansible.builtin.template:
+    src: dehydrated-credentials.sh.j2
+    dest: /usr/local/scripts/dehydrated-credentials.sh
+    owner: root
+    group: root
+    mode: 0700

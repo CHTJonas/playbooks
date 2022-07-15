@@ -6,6 +6,7 @@
     cache_valid_time: 3600
     pkg:
       - sudo
+      - ruby
       - mosh
       - byobu
       - wget

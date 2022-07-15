@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars_files:
-    - vault.yml
+    - vars/vault.yml
   roles:
     - system
     - getty
@@ -15,3 +15,11 @@
 - hosts: casilda
   roles:
     - virt
+
+- hosts: corcoran
+  vars_files:
+    - vars/dehydrated_corcoran.yml
+    - vars/apache_corcoran.yml
+  roles:
+    - dehydrated
+    - apache

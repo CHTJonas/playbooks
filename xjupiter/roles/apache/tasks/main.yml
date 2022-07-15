@@ -1,0 +1,119 @@
+---
+- name: Install Apache web server
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - apache2
+
+- name: Install SSL options config file
+  ansible.builtin.copy:
+    src: xjupiter-ssl-options.conf
+    dest: /etc/apache2/xjupiter-ssl-options.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload Apache
+
+- name: Install custom config files
+  ansible.builtin.copy:
+    src: "{{ item }}.conf"
+    dest: "/etc/apache2/conf-available/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - allow-override
+    - ocsp-stapling
+  notify:
+    - Reload Apache
+
+- name: Enable custom config files
+  ansible.builtin.file:
+    src: "/etc/apache2/conf-available/{{ item }}.conf"
+    dest: "/etc/apache2/conf-enabled/{{ item }}.conf"
+    state: link
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - allow-override
+    - ocsp-stapling
+  notify:
+    - Reload Apache
+
+- name: Remove serve-cgi-bin config
+  shell: /bin/rm -f /etc/apache2/conf-enabled/serve-cgi-bin.conf
+  notify:
+    - Reload Apache
+
+- name: Create virtual host log file directory
+  ansible.builtin.file:
+    path: /var/log/apache2/{{ item.servername }}
+    state: directory
+    owner: root
+    group: adm
+    mode: 0750
+  loop: "{{ apache_vhosts }}"
+
+- name: Add virtual host config files
+  ansible.builtin.template:
+    src: vhost.conf.j2
+    dest: /etc/apache2/sites-available/{{ item.servername }}.conf
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ apache_vhosts }}"
+  notify:
+    - Reload Apache
+
+- name: Remove pre-existing virtual host symlinks from sites-enabled directory
+  shell: /bin/rm -f /etc/apache2/sites-enabled/*
+
+- name: Enable requisite Apache modules
+  community.general.apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - autoindex
+    - cgid
+    - headers
+    - http2
+    - remoteip
+    - rewrite
+    - ssl
+    - status
+    - unique_id
+  notify:
+    - Reload Apache
+
+- name: Create virtual host symlinks in sites-enabled directory
+  ansible.builtin.file:
+    src: "/etc/apache2/sites-available/{{ item.servername }}.conf"
+    dest: "/etc/apache2/sites-enabled/{{ item.servername }}.conf"
+    state: link
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ apache_vhosts }}"
+  notify:
+    - Reload Apache
+
+- name: Set default virtual host
+  ansible.builtin.file:
+    src: "/etc/apache2/sites-available/{{ apache_default_vhost }}.conf"
+    dest: "/etc/apache2/sites-enabled/000-default.conf"
+    state: link
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload Apache
+
+- name: Add domain names to dehydrated
+  ansible.builtin.lineinfile:
+    path: /etc/dehydrated/domains.txt
+    line: "{{ item.servername }}"
+  loop: "{{ apache_vhosts }}"

@@ -59,3 +59,11 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Create scripts directory
+  ansible.builtin.file:
+    path: /usr/local/scripts
+    state: directory
+    owner: root
+    group: root
+    mode: 0755

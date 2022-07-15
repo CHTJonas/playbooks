@@ -1,0 +1,57 @@
+# This file is managed by Ansible
+
+{% if item.forcessl is defined %}
+<Directory {{ item.documentroot }}>
+	SSLRequireSSL
+</Directory>
+{% endif %}
+
+<VirtualHost *:80>
+	ServerName {{ item.servername }}
+	ServerAdmin {{ item.serveradmin }}
+	DocumentRoot {{ item.documentroot }}
+
+	ErrorLog ${APACHE_LOG_DIR}/{{ item.servername }}/error.log
+	CustomLog ${APACHE_LOG_DIR}/{{ item.servername }}/access.log combined
+
+	LogFormat "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" combined
+	RemoteIPProxyProtocol On
+{% if item.forcessl is defined %}
+
+	RewriteEngine On
+	RewriteCond %{HTTPS} off
+	RewriteCond %{HTTP_HOST} {{ item.servername }}$
+	RewriteRule ^(.*)$ https://{{ item.servername }}/$1 [L,NC,R=301]
+{% endif %}
+</VirtualHost>
+{% if item.ssl is defined %}
+
+<VirtualHost *:443>
+	Protocols h2 http/1.1
+	ServerName {{ item.servername }}
+	ServerAdmin {{ item.serveradmin }}
+	DocumentRoot {{ item.documentroot }}
+
+	ErrorLog ${APACHE_LOG_DIR}/{{ item.servername }}/error.log
+	CustomLog ${APACHE_LOG_DIR}/{{ item.servername }}/access.log combined
+
+	Include /etc/apache2/xjupiter-ssl-options.conf
+	SSLCertificateFile /var/lib/dehydrated/certs/{{ item.servername }}/fullchain.pem
+	SSLCertificateKeyFile /var/lib/dehydrated/certs/{{ item.servername }}/privkey.pem
+
+	LogFormat "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" combined
+	RemoteIPProxyProtocol On
+
+	Header always set Alt-Svc "h2=\":443\"; ma=2592000;"
+{% if item.enablehsts is defined %}
+	Header always set Strict-Transport-Security "max-age=63072000"
+{% elif item.preloadhsts is defined %}
+	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+{% endif %}
+{% if item.enableexpectct is defined %}
+	Header always set Expect-CT "max-age=86400, enforce, report-uri=\"https://xjupiter.net/cgi-bin/beacon\""
+{% endif %}
+</VirtualHost>
+{% endif %}
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet

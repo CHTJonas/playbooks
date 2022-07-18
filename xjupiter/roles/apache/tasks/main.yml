@@ -112,12 +112,6 @@
   notify:
     - Reload Apache
 
-- name: Add domain names to dehydrated
-  ansible.builtin.lineinfile:
-    path: /etc/dehydrated/domains.txt
-    line: "{{ item.servername }}"
-  loop: "{{ apache_vhosts }}"
-
 - name: Install dehydrated clean_challenge hook
   ansible.builtin.copy:
     src: reload-apache

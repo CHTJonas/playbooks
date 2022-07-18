@@ -1,0 +1,5 @@
+# This file is managed by Ansible
+
+{% for credentials in dehydrated_credentials %}
+{{ credentials.domain }}
+{% endfor %}

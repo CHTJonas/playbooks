@@ -47,6 +47,31 @@
     group: root
     mode: 0755
 
+- name: Install systemd service file
+  ansible.builtin.copy:
+    src: dehydrated.service
+    dest: /etc/systemd/system/dehydrated.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload systemd daemon
+
+- name: Install systemd timer file
+  ansible.builtin.copy:
+    src: dehydrated.timer
+    dest: /etc/systemd/system/dehydrated.timer
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload systemd daemon
+
+- name: Enable systemd timer
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: dehydrated.timer
+    enabled: yes
+    masked: no
+
 - name: Accept CAs terms of service
   shell: /usr/bin/dehydrated --register --accept-terms
 

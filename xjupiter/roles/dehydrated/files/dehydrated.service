@@ -1,0 +1,8 @@
+# This file is managed by Ansible
+
+[Unit]
+Description=dehydrated ACME certificate renewal
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/dehydrated --cron

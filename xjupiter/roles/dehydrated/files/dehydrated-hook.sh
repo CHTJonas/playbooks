@@ -2,9 +2,9 @@
 # This file is managed by Ansible
 
 SLEEP=30
-MAX_TRIES=60
+MAX_TRIES=10
 SERVERS="auth-dns.xjupiter.net."
-DIG_OPT="+tcp +time=1 +tries=1 +short"
+DIG_OPT="+norec +tcp +time=1 +tries=1 +short"
 
 group_args() {
     local nl=$'\n'
@@ -28,22 +28,26 @@ case $action in
             curl -sS https://api.ddns.xjupiter.net/update -X POST -d "contents=$token" -K- <<< "--user $username:$password"
             echo "   >  waiting $SLEEP seconds for DNS to propagate"
             sleep $SLEEP
-            echo "   >  checking DNS for $domain"
             i=0
             s=''
             for i in $(seq $MAX_TRIES); do
+                echo "   >  checking DNS for $domain (attempt $i of $MAX_TRIES)"
                 for s in $SERVERS; do
                     if ! dig $DIG_OPT @$s $username TXT | grep -q -e $token; then
-                        sleep $SLEEP
-                        continue 2
+                        if [ "$i" -eq "$MAX_TRIES" ]; then
+                            echo "   >  failed"
+                            echo "   >  challenge record not found in DNS"
+                            exit 1
+                        else
+                            echo "   >  failed (will retry after $SLEEP seconds)"
+                            sleep $SLEEP
+                            continue 2
+                        fi
                     fi
                 done
+                echo "   >  success"
                 break
             done
-            if [ "$i" -eq "$MAX_TRIES" ]; then
-                echo "   >  challenge record not found in DNS"
-                exit 1
-            fi
         done
         ;;
     clean_challenge)

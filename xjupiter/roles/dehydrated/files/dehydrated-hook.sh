@@ -47,7 +47,7 @@ case $action in
         done
         ;;
     clean_challenge)
-        systemctl reload apache2
-        exit 0
+        echo "   >  running clean_challenge hooks"
+        exec /usr/bin/run-parts -v /etc/dehydrated/clean_challenge-hooks
         ;;
 esac

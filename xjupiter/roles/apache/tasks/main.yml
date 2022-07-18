@@ -117,3 +117,11 @@
     path: /etc/dehydrated/domains.txt
     line: "{{ item.servername }}"
   loop: "{{ apache_vhosts }}"
+
+- name: Install dehydrated clean_challenge hook
+  ansible.builtin.copy:
+    src: reload-apache
+    dest: /etc/dehydrated/clean_challenge-hooks/reload-apache
+    owner: root
+    group: root
+    mode: 0755

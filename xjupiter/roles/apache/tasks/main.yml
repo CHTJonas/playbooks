@@ -130,3 +130,12 @@
     group: root
     mode: 0755
   notify: Reload nftables
+
+- name: Install Apache input plugin for telegraf
+  ansible.builtin.copy:
+    src: apache-telegraf.conf
+    dest: /etc/telegraf/telegraf.d/apache.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload telegraf

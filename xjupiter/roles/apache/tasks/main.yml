@@ -27,6 +27,7 @@
   with_items:
     - allow-override
     - ocsp-stapling
+    - proxy-protocol
   notify:
     - Reload Apache
 
@@ -41,6 +42,7 @@
   with_items:
     - allow-override
     - ocsp-stapling
+    - proxy-protocol
   notify:
     - Reload Apache
 

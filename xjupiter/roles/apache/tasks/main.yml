@@ -119,3 +119,12 @@
     owner: root
     group: root
     mode: 0755
+
+- name: Install Apache firewall rule
+  ansible.builtin.copy:
+    src: apache-nft.conf
+    dest: /etc/nftables/apache.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify: Reload nftables

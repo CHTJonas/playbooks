@@ -22,5 +22,10 @@
     owner: root
     group: root
     mode: 0755
-  notify:
-    - Reload kernel nf_tables
+  notify: Reload nftables
+
+- name: Enable nftables at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: nftables
+    enabled: yes

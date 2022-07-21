@@ -1,4 +1,5 @@
 ---
-- name: Reload kernel nf_tables
-  command:
-      cmd: /etc/nftables.conf
+- name: Reload nftables
+  ansible.builtin.systemd:
+    state: reloaded
+    name: nftables

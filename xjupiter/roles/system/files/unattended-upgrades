@@ -1,4 +1,5 @@
 // This file is managed by Ansible
+
 Unattended-Upgrade::AutoFixInterruptedDpkg "false";
 Unattended-Upgrade::MinimalSteps "false";
 Unattended-Upgrade::InstallOnShutdown "false";

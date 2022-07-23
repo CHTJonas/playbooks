@@ -52,6 +52,7 @@
     owner: root
     group: root
     mode: 0644
+  notify: Reload telegraf
 
 - name: Install telegraf environment variable file
   ansible.builtin.template:
@@ -60,6 +61,7 @@
     owner: root
     group: root
     mode: 0600
+  notify: Reload telegraf
 
 - name: Download telegraf executable (amd64)
   ansible.builtin.get_url:

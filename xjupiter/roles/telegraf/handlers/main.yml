@@ -1,0 +1,5 @@
+---
+- name: Reload telegraf
+  ansible.builtin.systemd:
+    name: telegraf
+    state: reloaded

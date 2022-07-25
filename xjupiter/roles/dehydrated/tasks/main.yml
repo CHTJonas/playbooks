@@ -65,10 +65,11 @@
     mode: 0644
   notify: Reload systemd daemon
 
-- name: Enable systemd timer
+- name: Enable and start systemd timer
   ansible.builtin.systemd:
     daemon_reload: yes
     name: dehydrated.timer
+    state: started
     enabled: yes
     masked: no
 

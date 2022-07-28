@@ -1,0 +1,3 @@
+---
+nginx_vhosts:
+  - { portnumber: "8086", servername: "influx.xjupiter.net", serveradmin: "admin@xjupiter.net", documentroot: "/var/www/html", ssl: true, forcessl: true, enablehsts: true, enableexpectct: true }

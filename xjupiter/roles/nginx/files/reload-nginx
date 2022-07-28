@@ -1,0 +1,4 @@
+#!/bin/bash
+# This file is managed by Ansible
+
+exec /usr/bin/systemctl reload nginx

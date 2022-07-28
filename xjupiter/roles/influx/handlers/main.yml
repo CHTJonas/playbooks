@@ -1,0 +1,6 @@
+---
+- name: Restart influxdb
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: influxdb
+    state: restarted

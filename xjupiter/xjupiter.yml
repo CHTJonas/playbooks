@@ -23,3 +23,12 @@
   roles:
     - dehydrated
     - apache
+
+- hosts: frederic
+  vars_files:
+    - vars/dehydrated_frederic.yml
+    - vars/nginx_frederic.yml
+  roles:
+    - dehydrated
+    - nginx
+    - influx

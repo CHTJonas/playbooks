@@ -1,0 +1,4 @@
+# This file is managed by Ansible
+
+bolt-path = "/var/lib/influxdb/influxd.bolt"
+engine-path = "/var/lib/influxdb/engine"

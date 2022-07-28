@@ -1,0 +1,20 @@
+---
+- name: Reload Nginx
+  ansible.builtin.systemd:
+    state: reloaded
+    name: nginx
+
+- name: Restart Nginx
+  ansible.builtin.systemd:
+    state: restarted
+    name: nginx
+
+- name: Reload nftables
+  ansible.builtin.systemd:
+    state: reloaded
+    name: nftables
+
+- name: Reload telegraf
+  ansible.builtin.systemd:
+    state: reloaded
+    name: telegraf

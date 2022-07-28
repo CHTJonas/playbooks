@@ -1,0 +1,77 @@
+---
+- name: Create influxdb group
+  ansible.builtin.group:
+    name: influxdb
+    system: yes
+
+- name: Create influxdb user
+  ansible.builtin.user:
+    name: influxdb
+    password: !
+    group: influxdb
+    groups: ''
+    system: yes
+    create_home: no
+    home: /etc/influxdb
+    shell: /usr/sbin/nologin
+
+- name: Create influxdb config directory
+  ansible.builtin.file:
+    path: /etc/influxdb
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create influxdb data directory
+  ansible.builtin.file:
+    path: /var/lib/influxdb
+    state: directory
+    owner: influxdb
+    group: influxdb
+    mode: 0755
+
+- name: Install influxdb config file
+  ansible.builtin.copy:
+    src: config.toml
+    dest: /etc/influxdb/config.toml
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart influxdb
+
+- name: Download influxd executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/influxd-latest-amd64
+    dest: /usr/local/bin/influxd
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'x86_64'
+
+- name: Download influxd executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/influxd-latest-arm64
+    dest: /usr/local/bin/influxd
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'aarch64'
+
+- name: Install influxdb service unit file
+  ansible.builtin.copy:
+    src: influxdb.service
+    dest: /etc/systemd/system/influxdb.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart influxdb
+
+- name: Start influxdb and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: influxdb
+    enabled: yes
+    state: started

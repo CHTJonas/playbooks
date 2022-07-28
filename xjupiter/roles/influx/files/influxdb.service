@@ -1,0 +1,18 @@
+# This file is managed by Ansible
+
+[Unit]
+Description=open-source distributed time series database
+Documentation=https://docs.influxdata.com/influxdb/
+After=network-online.target
+
+[Service]
+User=influxdb
+Group=influxdb
+LimitNOFILE=65536
+Environment="INFLUXD_CONFIG_PATH=/etc/influxdb/config.toml"
+ExecStart=/usr/local/bin/influxd --reporting-disabled
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+Alias=influxd.service

@@ -1,0 +1,99 @@
+---
+- name: Install Nginx web server
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - nginx
+
+#- name: Install SSL options config file
+#  ansible.builtin.copy:
+#    src: xjupiter-ssl-options.conf
+#    dest: /etc/nginx/xjupiter-ssl-options.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify:
+#    - Reload Nginx
+
+- name: Install main nginx config file
+  ansible.builtin.copy:
+    src: xjupiter.conf
+    dest: /etc/nginx/conf.d/xjupiter.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload Nginx
+
+- name: Create virtual host log file directory
+  ansible.builtin.file:
+    path: /var/log/nginx/{{ item.servername }}
+    state: directory
+    owner: www-data
+    group: adm
+    mode: 0750
+  loop: "{{ nginx_vhosts }}"
+
+- name: Add virtual host config files
+  ansible.builtin.template:
+    src: vhost.conf.j2
+    dest: /etc/nginx/sites-available/{{ item.servername }}.conf
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ nginx_vhosts }}"
+  notify:
+    - Reload Nginx
+
+- name: Remove pre-existing virtual host symlinks from sites-enabled directory
+  shell: /bin/rm -f /etc/nginx/sites-enabled/*
+
+- name: Create virtual host symlinks in sites-enabled directory
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{ item.servername }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ item.servername }}.conf"
+    state: link
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ nginx_vhosts }}"
+  notify:
+    - Reload Nginx
+
+- name: Add default virtual host config file
+  ansible.builtin.copy:
+    src: default.conf
+    dest: /etc/nginx/sites-enabled/default.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload Nginx
+
+- name: Install dehydrated clean_challenge hook
+  ansible.builtin.copy:
+    src: reload-nginx
+    dest: /etc/dehydrated/clean_challenge-hooks/reload-nginx
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install Nginx firewall rule
+  ansible.builtin.copy:
+    src: nginx-nft.conf
+    dest: /etc/nftables/nginx.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify: Reload nftables
+
+#- name: Install Nginx input plugin for telegraf
+#  ansible.builtin.copy:
+#    src: nginx-telegraf.conf
+#    dest: /etc/telegraf/telegraf.d/nginx.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify: Reload telegraf

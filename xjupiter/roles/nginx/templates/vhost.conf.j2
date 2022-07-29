@@ -11,8 +11,8 @@ server {
 	real_ip_header proxy_protocol;
 	root {{ item.documentroot }};
 
-	access_log /var/log/nginx/{{ item.servername }}/access.log elb_log;
-	error_log /var/log/nginx/{{ item.servername }}/error.log;
+	access_log /var/log/nginx/{{ item.servername }}_access.log elb_log;
+	error_log /var/log/nginx/{{ item.servername }}_error.log;
 {% if item.forcessl is defined %}
 
 	location / {
@@ -30,8 +30,8 @@ server {
 	keepalive_timeout 10;
 	root {{ item.documentroot }};
 
-	access_log /var/log/nginx/{{ item.servername }}/access.log elb_log;
-	error_log /var/log/nginx/{{ item.servername }}/error.log;
+	access_log /var/log/nginx/{{ item.servername }}_access.log elb_log;
+	error_log /var/log/nginx/{{ item.servername }}_error.log;
 
 	ssl_certificate /var/lib/dehydrated/certs/{{ item.servername }}/fullchain.pem;
 	ssl_certificate_key /var/lib/dehydrated/certs/{{ item.servername }}/privkey.pem;

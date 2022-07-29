@@ -11,8 +11,8 @@
 	ServerAdmin {{ item.serveradmin }}
 	DocumentRoot {{ item.documentroot }}
 
-	ErrorLog ${APACHE_LOG_DIR}/{{ item.servername }}/error.log
-	CustomLog ${APACHE_LOG_DIR}/{{ item.servername }}/access.log combined
+	ErrorLog ${APACHE_LOG_DIR}/{{ item.servername }}_error.log
+	CustomLog ${APACHE_LOG_DIR}/{{ item.servername }}_access.log combined
 
 	LogFormat "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" combined
 	RemoteIPProxyProtocol On
@@ -32,8 +32,8 @@
 	ServerAdmin {{ item.serveradmin }}
 	DocumentRoot {{ item.documentroot }}
 
-	ErrorLog ${APACHE_LOG_DIR}/{{ item.servername }}/error.log
-	CustomLog ${APACHE_LOG_DIR}/{{ item.servername }}/access.log combined
+	ErrorLog ${APACHE_LOG_DIR}/{{ item.servername }}_error.log
+	CustomLog ${APACHE_LOG_DIR}/{{ item.servername }}_access.log combined
 
 	Include /etc/apache2/xjupiter-ssl-options.conf
 	SSLCertificateFile /var/lib/dehydrated/certs/{{ item.servername }}/fullchain.pem

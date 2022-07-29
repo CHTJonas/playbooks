@@ -27,15 +27,6 @@
   notify:
     - Reload Nginx
 
-- name: Create virtual host log file directory
-  ansible.builtin.file:
-    path: /var/log/nginx/{{ item.servername }}
-    state: directory
-    owner: www-data
-    group: adm
-    mode: 0750
-  loop: "{{ nginx_vhosts }}"
-
 - name: Add virtual host config files
   ansible.builtin.template:
     src: vhost.conf.j2

@@ -51,15 +51,6 @@
   notify:
     - Reload Apache
 
-- name: Create virtual host log file directory
-  ansible.builtin.file:
-    path: /var/log/apache2/{{ item.servername }}
-    state: directory
-    owner: root
-    group: adm
-    mode: 0750
-  loop: "{{ apache_vhosts }}"
-
 - name: Add virtual host config files
   ansible.builtin.template:
     src: vhost.conf.j2

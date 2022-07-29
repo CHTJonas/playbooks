@@ -14,6 +14,13 @@
   username = "${TELEGRAF_USERNAME}"
   password = "${TELEGRAF_PASSWORD}"
 
+[[outputs.influxdb_v2]]
+  urls = ["$TELEGRAF_INFLUX_ENDPOINT"]
+  token = "$TELEGRAF_INFLUX_TOKEN"
+  organization = "$TELEGRAF_INFLUX_ORG"
+  bucket = "$TELEGRAF_INFLUX_BUCKET"
+  timeout = "30s"
+
 [[inputs.cpu]]
   percpu = true
   totalcpu = true

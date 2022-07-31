@@ -9,8 +9,7 @@ After=network-online.target
 User=influxdb
 Group=influxdb
 LimitNOFILE=65536
-Environment="INFLUXD_CONFIG_PATH=/etc/influxdb/config.toml"
-ExecStart=/usr/local/bin/influxd --reporting-disabled
+ExecStart=/usr/local/bin/influxd run
 Restart=always
 
 [Install]

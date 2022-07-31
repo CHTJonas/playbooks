@@ -33,16 +33,36 @@
 
 - name: Install influxdb config file
   ansible.builtin.copy:
-    src: config.toml
-    dest: /etc/influxdb/config.toml
+    src: influxdb.conf
+    dest: /etc/influxdb/influxdb.conf
     owner: root
     group: root
     mode: 0644
   notify: Restart influxdb
 
+- name: Download influx executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/influx-1.8.10-amd64
+    dest: /usr/local/bin/influx
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'x86_64'
+
+- name: Download influx executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/influx-1.8.10-arm64
+    dest: /usr/local/bin/influx
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'aarch64'
+
 - name: Download influxd executable (amd64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/influxd-latest-amd64
+    url: https://dl.xjupiter.net/binaries/influxd-1.8.10-amd64
     dest: /usr/local/bin/influxd
     force: yes
     owner: root
@@ -52,7 +72,7 @@
 
 - name: Download influxd executable (arm64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/influxd-latest-arm64
+    url: https://dl.xjupiter.net/binaries/influxd-1.8.10-arm64
     dest: /usr/local/bin/influxd
     force: yes
     owner: root

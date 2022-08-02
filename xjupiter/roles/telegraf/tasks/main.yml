@@ -61,7 +61,7 @@
     owner: root
     group: root
     mode: 0600
-  notify: Reload telegraf
+  notify: Restart telegraf
 
 - name: Download telegraf executable (amd64)
   ansible.builtin.get_url:

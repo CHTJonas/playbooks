@@ -59,6 +59,11 @@ server {
 		proxy_read_timeout          10;
 		send_timeout                10;
 
+{% if item.customblock is defined %}
+# Custom block
+{{ item.customblock }}
+{% endif %}
+
 		# If the file exists as a static file serve it directly.
 		if (-f $request_filename) {
 			break;

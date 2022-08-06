@@ -1,0 +1,9 @@
+# This file is managed by Ansible
+
+[Unit]
+Description=restic backup job
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/default/restic
+ExecStart=/usr/local/bin/restic backup --no-cache --files-from /etc/restic/files

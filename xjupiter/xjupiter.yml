@@ -20,9 +20,11 @@
   vars_files:
     - vars/dehydrated_corcoran.yml
     - vars/apache_corcoran.yml
+    - vars/restic_corcoran.yml
   roles:
     - dehydrated
     - apache
+    - restic
 
 - hosts: frederic
   vars_files:

@@ -1,0 +1,68 @@
+---
+- name: Create restic config directory
+  ansible.builtin.file:
+    path: /etc/restic
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install restic config file
+  ansible.builtin.template:
+    src: files.j2
+    dest: /etc/restic/files
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install restic environment variable file
+  ansible.builtin.template:
+    src: restic.j2
+    dest: /etc/default/restic
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Download restic executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/restic-latest-amd64
+    dest: /usr/local/bin/restic
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'x86_64'
+
+- name: Download restic executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/restic-latest-arm64
+    dest: /usr/local/bin/restic
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'aarch64'
+
+- name: Install systemd service file
+  ansible.builtin.copy:
+    src: restic.service
+    dest: /etc/systemd/system/restic.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install systemd timer file
+  ansible.builtin.copy:
+    src: restic.timer
+    dest: /etc/systemd/system/restic.timer
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable and start systemd timer
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: restic.timer
+    state: started
+    enabled: yes
+    masked: no

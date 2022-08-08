@@ -5,4 +5,5 @@ apache_vhosts:
   - { servername: "dl.xjupiter.net", serveradmin: "admin@xjupiter.net", documentroot: "/var/www/dl.xjupiter.net/", ssl: true, forcessl: true, enablehsts: true, enableexpectct: true }
   - { servername: "dl.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/dl.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
   - { servername: "id.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/id.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
+  - { servername: "snippets.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/snippets.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
 apache_default_vhost: www.xjupiter.net

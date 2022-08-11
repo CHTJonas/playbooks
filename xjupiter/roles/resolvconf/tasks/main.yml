@@ -1,0 +1,14 @@
+---
+- name: Stop systemd-resolved and disable at boot
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    enabled: no
+    state: stopped
+
+- name: Install /etc/resolv.conf file
+  ansible.builtin.copy:
+    src: resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644

@@ -37,5 +37,7 @@
     - influx
 
 - hosts: hildebrand
+  vars_files:
+    - knot_hildebrand.yml
   roles:
     - knot

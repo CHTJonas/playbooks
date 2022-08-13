@@ -98,3 +98,56 @@
   with_items:
     - check-cds-rrsets
     - check-ds-rrsets
+
+- name: Download mc executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/mc-latest-amd64
+    dest: /usr/local/bin/mc
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'x86_64'
+
+- name: Download mc executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/mc-latest-arm64
+    dest: /usr/local/bin/mc
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'aarch64'
+
+- name: Create mc config directory
+  ansible.builtin.file:
+    path: /root/.mc
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: Add mc config file
+  ansible.builtin.template:
+    src: config.json.j2
+    dest: /root/.mc/config.json
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Install DNS backup script
+  ansible.builtin.copy:
+    src: backup-dns
+    dest: /usr/local/scripts/backup-dns
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create cron symlinks for DNS backup script
+  ansible.builtin.file:
+    src: /usr/local/scripts/backup-dns
+    dest: /etc/cron.daily/backup-dns
+    state: link
+    owner: root
+    group: root
+    mode: 0755

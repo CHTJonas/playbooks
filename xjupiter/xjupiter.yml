@@ -35,3 +35,7 @@
     - dehydrated
     - nginx
     - influx
+
+- hosts: hildebrand
+  roles:
+    - knot

@@ -1,0 +1,42 @@
+---
+- name: Install Knot signing key
+  ansible.builtin.get_url:
+    url: https://deb.knot-dns.cz/apt.gpg
+    dest: /etc/apt/keyrings/knot.gpg
+
+- name: Install Knot repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot-latest/ {{ ansible_distribution_release }} main"
+    filename: knot
+
+- name: Install Knot server and utilities
+  ansible.builtin.apt:
+    install_recommends: no
+    pkg:
+      - knot
+      - knot-dnsutils
+
+- name: Install knot config file
+  ansible.builtin.copy:
+    src: knot.conf
+    dest: /etc/knot/knot.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart Knot
+
+- name: Enable and start systemd unit
+  ansible.builtin.systemd:
+    name: knot.service
+    state: started
+    enabled: yes
+    masked: no
+
+- name: Install Knot firewall rule
+  ansible.builtin.copy:
+    src: knot-nft.conf
+    dest: /etc/nftables/knot.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify: Reload nftables

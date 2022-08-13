@@ -54,7 +54,8 @@ services:
       - "5514:5514/udp"   # Remote logging
 
   traefik:
-    image: traefik:2.4.11
+    # v2.4.14 linux/amd64
+    image: traefik@sha256:d6039a8a87021d99b45aafdad699e63fbf388917d2e934e66e20d9e46854ba6f
     restart: always
     ports:
       - "80:80"

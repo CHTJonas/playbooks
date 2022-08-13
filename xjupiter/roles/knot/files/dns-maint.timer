@@ -1,0 +1,11 @@
+# This file is managed by Ansible
+
+[Unit]
+Description=run DNS maintenance scripts regularly
+
+[Timer]
+OnCalendar=minutely
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,13 @@
+#!/bin/bash
+# This file is managed by Ansible
+
+set -euo pipefail
+
+NEW_IP=$(dig +short latham.ddns.xjupiter.net. A | tail -n 1 | grep -v mynetname)
+OLD_IP=$(grep 'latham.xjupiter.net.' /var/lib/knot/xjupiter.net.zone | awk '{ print $5 }')
+
+if [[ ! -z $NEW_IP && $OLD_IP != $NEW_IP ]]; then
+  echo "Updating $OLD_IP to $NEW_IP..."
+  sed -i -e "s/$OLD_IP/$NEW_IP/g" /var/lib/knot/xjupiter.net.zone
+  /usr/sbin/knotc zone-reload xjupiter.net
+fi

@@ -1,0 +1,9 @@
+# This file is managed by Ansible
+
+[Unit]
+Description=DNS maintenance scripts
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/scripts/update-latham-ddns
+ExecStart=/usr/local/scripts/update-old-vic-ddns

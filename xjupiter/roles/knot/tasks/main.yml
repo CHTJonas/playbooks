@@ -40,3 +40,38 @@
     group: root
     mode: 0755
   notify: Reload nftables
+
+- name: Install DNS maintenance scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/local/scripts/
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - update-latham-ddns
+    - update-old-vic-ddns
+
+- name: Install systemd service file
+  ansible.builtin.copy:
+    src: dns-maint.service
+    dest: /etc/systemd/system/dns-maint.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install systemd timer file
+  ansible.builtin.copy:
+    src: dns-maint.timer
+    dest: /etc/systemd/system/dns-maint.timer
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable and start systemd timer
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: dns-maint.timer
+    state: started
+    enabled: yes
+    masked: no

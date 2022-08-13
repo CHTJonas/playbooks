@@ -3,7 +3,8 @@ version: "3.7"
 
 services:
   mongo:
-    image: mongo:3.6.23
+    # v3.6.23 linux/amd64
+    image: mongo@sha256:19c11a8f1064fd2bb713ef1270f79a742a184cd57d9bb922efdd2a8eca514af8
     command: --wiredTigerCacheSizeGB 0.4
     restart: always
     networks:

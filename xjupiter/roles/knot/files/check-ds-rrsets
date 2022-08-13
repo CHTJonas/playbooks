@@ -1,0 +1,24 @@
+#!/bin/bash
+# This file is managed by Ansible
+
+set -euo pipefail
+
+nameArr=(
+  "charliejonas.com."
+  "charliejonas.co.uk."
+  "chtj.uk."
+  "ddns.xjupiter.net."
+  "ianjonas.co.uk."
+  "jonasfamily.org.uk."
+  "shaftofdarkness.club."
+  "wendy-jonas.com."
+  "xjupiter.net."
+)
+
+for name in ${nameArr[*]}; do
+  KSK_COUNT="$(dig +short +norec -t DNSKEY @127.0.0.1 $name | sed -n /^257/p | wc -l)"
+  DS_COUNT="$(dig +short -t DS @2606:4700:4700::1111 $name | wc -l)"
+  if [ ! "$KSK_COUNT" == "$DS_COUNT" ]; then
+    echo "$name KSK-vs-DS mismatch ($KSK_COUNT KSK RRsets detected, $DS_COUNT DS RRsets detected)"
+  fi
+done

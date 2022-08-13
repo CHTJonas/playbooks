@@ -75,3 +75,26 @@
     state: started
     enabled: yes
     masked: no
+
+- name: Install DS record management scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/local/scripts/
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - check-cds-rrsets
+    - check-ds-rrsets
+
+- name: Create cron symlinks for DS record management scripts
+  ansible.builtin.file:
+    src: "/usr/local/scripts/{{ item }}"
+    dest: "/etc/cron.daily/{{ item }}"
+    state: link
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - check-cds-rrsets
+    - check-ds-rrsets

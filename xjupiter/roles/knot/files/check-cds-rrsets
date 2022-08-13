@@ -1,0 +1,23 @@
+#!/bin/bash
+# This file is managed by Ansible
+
+set -euo pipefail
+
+nameArr=(
+  "charliejonas.com."
+  "charliejonas.co.uk."
+  "chtj.uk."
+  "ddns.xjupiter.net."
+  "ianjonas.co.uk."
+  "jonasfamily.org.uk."
+  "shaftofdarkness.club."
+  "wendy-jonas.com."
+  "xjupiter.net."
+)
+
+for name in ${nameArr[*]}; do
+  result="$(dig +short +norec -t CDS @127.0.0.1 $name)"
+  if [ ! -z "$result" ]; then
+    echo "$name $result"
+  fi
+done

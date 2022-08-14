@@ -38,6 +38,11 @@
 
 - hosts: hildebrand
   vars_files:
-    - knot_hildebrand.yml
+    - vars/knot_hildebrand.yml
+    - vars/dehydrated_hildebrand.yml
+    - vars/nginx_hildebrand.yml
   roles:
     - knot
+    - ddnsd
+    - dehydrated
+    - nginx

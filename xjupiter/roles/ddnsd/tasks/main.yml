@@ -1,0 +1,75 @@
+---
+- name: Install Apache utilities
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - apache2-utils
+
+- name: Create ddnsd group
+  ansible.builtin.group:
+    name: ddnsd
+    system: yes
+
+- name: Create ddnsd user
+  ansible.builtin.user:
+    name: ddnsd
+    password: !
+    group: ddnsd
+    groups: ''
+    system: yes
+    create_home: no
+    home: /var/lib/knot
+    shell: /usr/sbin/nologin
+
+- name: Install ddnsd sudoers config
+  ansible.builtin.copy:
+    src: ddnsd
+    dest: /etc/sudoers.d/ddnsd
+    owner: root
+    group: root
+    mode: 0440
+
+- name: Download ddnsd executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.charliejonas.co.uk/software/dist/ddnsd-1.1.0/ddnsd-linux-1.1.0-amd64
+    dest: /usr/local/bin/ddnsd
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'x86_64'
+
+- name: Download ddnsd executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.charliejonas.co.uk/software/dist/ddnsd-1.1.0/ddnsd-linux-1.1.0-arm64
+    dest: /usr/local/bin/ddnsd
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_architecture == 'aarch64'
+
+- name: Install ddns zone reload script
+  ansible.builtin.copy:
+    src: ddns-reload
+    dest: /usr/local/scripts/ddns-reload
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install ddnsd service unit file
+  ansible.builtin.copy:
+    src: ddnsd.service
+    dest: /etc/systemd/system/ddnsd.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start ddnsd and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: ddnsd
+    enabled: yes
+    state: started

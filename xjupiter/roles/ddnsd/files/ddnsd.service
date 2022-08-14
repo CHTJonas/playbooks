@@ -1,0 +1,26 @@
+[Unit]
+Description=dynamic DNS daemon
+Documentation=https://github.com/CHTJonas/ddnsd
+After=network.target
+
+[Service]
+User=ddnsd
+Group=ddnsd
+WorkingDirectory=/var/lib/knot
+ExecStart=/usr/local/bin/ddnsd -b 127.0.0.1:10002 -H /usr/local/scripts/ddns-reload -z ddns.xjupiter.net.zone
+Restart=always
+
+# Process properties
+KeyringMode=private
+
+# Sandboxing
+ProtectHome=yes
+ReadWritePaths=/var/lib/knot/ddns.xjupiter.net.zone
+PrivateTmp=yes
+ProtectControlGroups=true
+
+# System call filtering
+#SystemCallFilter=@system-service
+
+[Install]
+WantedBy=multi-user.target

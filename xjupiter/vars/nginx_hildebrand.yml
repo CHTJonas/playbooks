@@ -1,15 +1,10 @@
 ---
 nginx_vhosts:
-  - portnumber: "8086"
-    servername: "influx.xjupiter.net"
+  - portnumber: "10002"
+    servername: "api.ddns.xjupiter.net"
     serveradmin: "admin@xjupiter.net"
     documentroot: "/var/www/html"
-    proxyprotocol: true
     ssl: true
     forcessl: true
     enablehsts: true
     enableexpectct: true
-    customblock: |
-        location ^~ /debug/ {
-            return 403;
-        }

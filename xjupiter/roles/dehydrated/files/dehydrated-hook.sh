@@ -3,7 +3,7 @@
 
 SLEEP=30
 MAX_TRIES=10
-SERVERS="auth-dns.xjupiter.net."
+SERVERS="hildebrand.xjupiter.net."
 DIG_OPT="+norec +tcp +time=1 +tries=1 +short"
 
 group_args() {
@@ -20,7 +20,7 @@ case $action in
     deploy_challenge)
         group_args "$@"
         echo -ne "$ARGS" | while read domain filename token; do
-            echo "   >  updating DNS for $domain"
+            echo "   >  updating DNS for $domain ($token)"
             username=''
             password=''
             . /usr/local/scripts/dehydrated-credentials.sh

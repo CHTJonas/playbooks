@@ -54,7 +54,6 @@
     owner: root
     group: root
     mode: 0644
-  notify: Reload systemd daemon
 
 - name: Install systemd timer file
   ansible.builtin.copy:
@@ -63,7 +62,6 @@
     owner: root
     group: root
     mode: 0644
-  notify: Reload systemd daemon
 
 - name: Enable and start systemd timer
   ansible.builtin.systemd:

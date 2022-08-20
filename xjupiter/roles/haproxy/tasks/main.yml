@@ -1,0 +1,52 @@
+---
+- name: Create HAProxy systemd unit override directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/haproxy.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install HAProxy systemd unit override file
+  ansible.builtin.copy:
+    src: override.conf
+    dest: /etc/systemd/system/haproxy.service.d/override.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload systemd
+
+- name: Install HAProxy
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - haproxy
+
+- name: Install HAProxy config file
+  ansible.builtin.template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart HAProxy
+
+- name: Install HAProxy firewall rule
+  ansible.builtin.copy:
+    src: haproxy-nft.conf
+    dest: /etc/nftables/haproxy.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify: Reload nftables
+
+- name: Enable and start HAProxy systemd unit
+  ansible.builtin.systemd:
+    name: haproxy.service
+    state: started
+    enabled: yes
+    masked: no

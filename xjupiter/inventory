@@ -4,3 +4,4 @@ corcoran	ansible_user=root ansible_host=corcoran.xjupiter.net
 josephine	ansible_user=root ansible_host=josephine.xjupiter.net
 frederic	ansible_user=root ansible_host=frederic.xjupiter.net
 hildebrand	ansible_user=root ansible_host=hildebrand.xjupiter.net
+blanche     ansible_user=root ansible_host=blanche.xjupiter.net

@@ -1,0 +1,14 @@
+---
+haproxy_backends:
+  - { name: "corcoran", hostname: "corcoran.xjupiter.net" }
+  - { name: "frederic", hostname: "frederic.xjupiter.net" }
+
+haproxy_proxies:
+  - { backend: "corcoran", hostname: "www.xjupiter.net" }
+  - { backend: "corcoran", hostname: "xjupiter.net" }
+  - { backend: "corcoran", hostname: "dl.xjupiter.net" }
+  - { backend: "corcoran", hostname: "dl.charliejonas.co.uk" }
+  - { backend: "corcoran", hostname: "id.charliejonas.co.uk" }
+  - { backend: "corcoran", hostname: "snippets.charliejonas.co.uk" }
+  - { backend: "corcoran", hostname: "ppe.charliejonas.co.uk" }
+  - { backend: "frederic", hostname: "influx.xjupiter.net" }

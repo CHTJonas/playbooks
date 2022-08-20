@@ -46,3 +46,9 @@
     - ddnsd
     - dehydrated
     - nginx
+
+- hosts: blanche
+  vars_files:
+    - vars/haproxy_blanche.yml
+  roles:
+    - haproxy

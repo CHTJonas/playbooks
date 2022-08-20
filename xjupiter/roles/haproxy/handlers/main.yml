@@ -1,0 +1,14 @@
+---
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Restart HAProxy
+  ansible.builtin.systemd:
+    state: restarted
+    name: haproxy
+
+- name: Reload nftables
+  ansible.builtin.systemd:
+    state: reloaded
+    name: nftables

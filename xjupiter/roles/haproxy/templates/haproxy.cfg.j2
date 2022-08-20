@@ -1,0 +1,58 @@
+# This file is managed by Ansible
+
+global
+	log /dev/log local0
+	log /dev/log local1 notice
+	chroot /var/lib/haproxy
+	stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+	stats timeout 30s
+	user haproxy
+	group haproxy
+	daemon
+
+defaults
+	log global
+	option dontlognull
+	retries 3
+	maxconn 2000
+	timeout connect 5s
+	timeout client 50s
+	timeout server 50s
+	errorfile 400 /etc/haproxy/errors/400.http
+	errorfile 403 /etc/haproxy/errors/403.http
+	errorfile 408 /etc/haproxy/errors/408.http
+	errorfile 500 /etc/haproxy/errors/500.http
+	errorfile 502 /etc/haproxy/errors/502.http
+	errorfile 503 /etc/haproxy/errors/503.http
+	errorfile 504 /etc/haproxy/errors/504.http
+
+frontend http-in
+	mode http
+	bind 0.0.0.0:80
+	bind [::]:80
+	option httplog
+{% for proxy in haproxy_proxies %}
+	use_backend {{ proxy.backend }}-http if { hdr(host) -i {{ proxy.hostname }} }
+{% endfor %}
+
+frontend https-in
+	mode tcp
+	bind 0.0.0.0:443
+	bind [::]:443
+	option tcplog
+	tcp-request inspect-delay 5s
+	tcp-request content accept if { req_ssl_hello_type 1 }
+{% for proxy in haproxy_proxies %}
+	use_backend {{ proxy.backend }}-https if { req_ssl_sni -i {{ proxy.hostname }} }
+{% endfor %}
+
+{% for backend in haproxy_backends %}
+backend {{ backend.name }}-http
+	mode http
+	server {{ backend.name }} {{ backend.hostname }}:80 send-proxy-v2
+
+backend {{ backend.name }}-https
+	mode tcp
+	option ssl-hello-chk
+	server {{ backend.name }} {{ backend.hostname }}:443 send-proxy-v2
+{% endfor %}

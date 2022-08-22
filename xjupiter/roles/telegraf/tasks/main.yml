@@ -1,4 +1,10 @@
 ---
+- name: Uninstall telegraf apt package
+  ansible.builtin.apt:
+    pkg: telegraf
+    state: absent
+    purge: yes
+
 - name: Install conntrack kernel modules
   ansible.builtin.apt:
     install_recommends: no
@@ -71,6 +77,7 @@
     owner: root
     group: root
     mode: 0755
+  notify: Restart telegraf
   when: ansible_architecture == 'x86_64'
 
 - name: Download telegraf executable (arm64)
@@ -81,6 +88,7 @@
     owner: root
     group: root
     mode: 0755
+  notify: Restart telegraf
   when: ansible_architecture == 'aarch64'
 
 - name: Install telegraf service unit file

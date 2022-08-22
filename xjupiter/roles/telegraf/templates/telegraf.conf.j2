@@ -7,14 +7,6 @@
   hostname = "{{ ansible_host }}"
 
 [[outputs.influxdb]]
-  urls = ["${TELEGRAF_ENDPOINT}"]
-  database = "telegraf"
-  skip_database_creation = true
-  timeout = "30s"
-  username = "${TELEGRAF_USERNAME}"
-  password = "${TELEGRAF_PASSWORD}"
-
-[[outputs.influxdb]]
   urls = ["$TELEGRAF_INFLUX_ENDPOINT"]
   database = "$TELEGRAF_INFLUX_DATABASE"
   username = "$TELEGRAF_INFLUX_USERNAME"

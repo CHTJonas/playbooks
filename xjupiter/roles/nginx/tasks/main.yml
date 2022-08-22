@@ -53,10 +53,10 @@
   notify:
     - Reload Nginx
 
-- name: Add default virtual host config file
+- name: Add server_status config file
   ansible.builtin.copy:
-    src: default.conf
-    dest: /etc/nginx/sites-enabled/default.conf
+    src: status.conf
+    dest: /etc/nginx/sites-enabled/status.conf
     owner: root
     group: root
     mode: 0644
@@ -80,11 +80,11 @@
     mode: 0755
   notify: Reload nftables
 
-#- name: Install Nginx input plugin for telegraf
-#  ansible.builtin.copy:
-#    src: nginx-telegraf.conf
-#    dest: /etc/telegraf/telegraf.d/nginx.conf
-#    owner: root
-#    group: root
-#    mode: 0644
-#  notify: Reload telegraf
+- name: Install Nginx input plugin for telegraf
+  ansible.builtin.copy:
+    src: nginx-telegraf.conf
+    dest: /etc/telegraf/telegraf.d/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload telegraf

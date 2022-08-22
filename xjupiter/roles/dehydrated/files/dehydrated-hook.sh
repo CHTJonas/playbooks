@@ -20,13 +20,13 @@ case $action in
     deploy_challenge)
         group_args "$@"
         echo -ne "$ARGS" | while read domain filename token; do
-            echo "   >  updating DNS for $domain ($token)"
+            echo "   >  updating DNS record for $domain with $token"
             username=''
             password=''
             . /usr/local/scripts/dehydrated-credentials.sh
             echo -n "   >  result from API: "
             curl -sS https://api.ddns.xjupiter.net/update -X POST -d "contents=$token" -K- <<< "--user $username:$password"
-            echo "   >  waiting $SLEEP seconds for DNS to propagate"
+            echo "   >  waiting $SLEEP seconds for DNS changes to propagate"
             sleep $SLEEP
             i=0
             s=''

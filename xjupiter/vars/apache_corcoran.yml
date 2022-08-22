@@ -7,4 +7,8 @@ apache_vhosts:
   - { servername: "id.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/id.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
   - { servername: "snippets.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/snippets.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
   - { servername: "ppe.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/ppe.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
+  - { servername: "i.chtj.uk", serveradmin: "admin@chtj.uk", documentroot: "/var/www/i.chtj.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
+  - { servername: "v.chtj.uk", serveradmin: "admin@chtj.uk", documentroot: "/var/www/v.chtj.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
+  - { servername: "w3.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/w3.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
+  - { servername: "charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
 apache_default_vhost: www.xjupiter.net

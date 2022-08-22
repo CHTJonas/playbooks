@@ -11,4 +11,8 @@ haproxy_proxies:
   - { backend: "corcoran", hostname: "id.charliejonas.co.uk" }
   - { backend: "corcoran", hostname: "snippets.charliejonas.co.uk" }
   - { backend: "corcoran", hostname: "ppe.charliejonas.co.uk" }
+  - { backend: "corcoran", hostname: "i.chtj.uk" }
+  - { backend: "corcoran", hostname: "v.chtj.uk" }
+  - { backend: "corcoran", hostname: "w3.charliejonas.co.uk" }
+  - { backend: "corcoran", hostname: "charliejonas.co.uk" }
   - { backend: "frederic", hostname: "influx.xjupiter.net" }

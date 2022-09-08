@@ -15,4 +15,6 @@ haproxy_proxies:
   - { backend: "corcoran", hostname: "v.chtj.uk" }
   - { backend: "corcoran", hostname: "w3.charliejonas.co.uk" }
   - { backend: "corcoran", hostname: "charliejonas.co.uk" }
+  - { backend: "corcoran", hostname: "shaftofdarkness.club" }
+  - { backend: "corcoran", hostname: "www.shaftofdarkness.club" }
   - { backend: "frederic", hostname: "influx.xjupiter.net" }

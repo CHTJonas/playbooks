@@ -11,4 +11,6 @@ apache_vhosts:
   - { servername: "v.chtj.uk", serveradmin: "admin@chtj.uk", documentroot: "/var/www/v.chtj.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
   - { servername: "w3.charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/w3.charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
   - { servername: "charliejonas.co.uk", serveradmin: "admin@charliejonas.co.uk", documentroot: "/var/www/charliejonas.co.uk/", ssl: true, forcessl: true, preloadhsts: true, enableexpectct: true }
+  - { servername: "shaftofdarkness.club", serveradmin: "admin@shaftofdarkness.club", documentroot: "/var/www/shaftofdarkness.club/", ssl: true, enablehsts: true, enableexpectct: true }
+  - { servername: "www.shaftofdarkness.club", serveradmin: "admin@shaftofdarkness.club", documentroot: "/var/www/shaftofdarkness.club/", ssl: true, enablehsts: true, enableexpectct: true }
 apache_default_vhost: www.xjupiter.net

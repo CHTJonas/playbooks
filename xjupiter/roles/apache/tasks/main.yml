@@ -47,7 +47,9 @@
     - Reload Apache
 
 - name: Remove serve-cgi-bin config
-  shell: /bin/rm -f /etc/apache2/conf-enabled/serve-cgi-bin.conf
+  ansible.builtin.file:
+    state: absent
+    path: /etc/apache2/conf-enabled/serve-cgi-bin.conf
   notify:
     - Reload Apache
 

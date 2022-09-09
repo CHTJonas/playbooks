@@ -45,6 +45,7 @@
       - pv
       - netcat-openbsd
       - socat
+      - psmisc
       - procps
       - strace
       - sysstat

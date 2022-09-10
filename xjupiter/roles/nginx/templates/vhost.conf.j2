@@ -1,6 +1,6 @@
 # This file is managed by Ansible
 
-upstream appserver {
+upstream {{ item.servername | replace(".", "_") }} {
 	server 127.0.0.1:{{ item.portnumber }};
 }
 
@@ -75,7 +75,7 @@ server {
 
 		# Otherwise proxy to the application server
 		if (!-f $request_filename) {
-			proxy_pass http://appserver;
+			proxy_pass http://{{ item.servername | replace(".", "_") }};
 			break;
 		}
 	}

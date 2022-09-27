@@ -19,12 +19,19 @@
   timezone:
     name: Etc/UTC
 
-- name: 'Disable motd-news'
+- name: Disable motd-news
   ansible.builtin.systemd:
     name: 'motd-news'
     enabled: no
     masked: yes
   when: ansible_distribution == 'Ubuntu'
+
+- name: Install locales package
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    name: locales
 
 - name: Generate British locales
   community.general.locale_gen:

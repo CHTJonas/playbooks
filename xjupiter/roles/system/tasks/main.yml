@@ -7,7 +7,13 @@
     group: root
     mode: 0644
 
+- name: Check if GRUB is the bootloader
+  stat:
+    path: /etc/default/grub
+  register: grub_config
+
 - import_tasks: grub.yml
+  when: grub_config.stat.exists
 
 - name: Set timezone to UTC
   timezone:

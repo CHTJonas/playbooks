@@ -5,6 +5,13 @@
     update_cache: yes
     cache_valid_time: 3600
     pkg:
+      - bash-completion
+      - software-properties-common
+      - apt-listchanges
+      - apt-transport-https
+      - ssh
+      - openssh-client
+      - openssh-server
       - sudo
       - ruby
       - mosh
@@ -19,24 +26,28 @@
       - patch
       - less
       - file
-      - software-properties-common
-      - apt-transport-https
-      - ecryptfs-utils
+      - lsof
+      - rename
+      - rsync
       - git
       - make
       - zip
       - unzip
+      - bzip2
       - pigz
       - zstd
       - xz-utils
-      - rename
-      - rsync
+      - ecryptfs-utils
       - coreutils
       - binutils
       - moreutils
       - sharutils
+      - diffutils
+      - findutils
+      - usbutils
       - dnsutils
       - net-tools
+      - hostname
       - traceroute
       - mtr-tiny
       - telnet
@@ -49,3 +60,4 @@
       - procps
       - strace
       - sysstat
+      - discover

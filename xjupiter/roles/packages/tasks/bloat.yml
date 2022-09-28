@@ -11,3 +11,5 @@
       - landscape-common
       - pollen
       - apport
+      - debian-faq
+      - laptop-detect

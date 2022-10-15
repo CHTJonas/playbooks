@@ -27,7 +27,7 @@
 - name: Add root SSH authorized_keys
   ansible.posix.authorized_key:
     user: root
-    key: https://id.charliejonas.co.uk/secure_authorized_keys
+    key: https://id.charliejonas.co.uk/secure/authorized_keys
 
 - name: Add chtjonas SSH authorized_keys
   ansible.posix.authorized_key:

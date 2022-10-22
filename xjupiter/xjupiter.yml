@@ -52,7 +52,3 @@
     - vars/haproxy_blanche.yml
   roles:
     - haproxy
-
-- hosts: gianetta
-  roles:
-    - virt

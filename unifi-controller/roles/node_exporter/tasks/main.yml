@@ -31,7 +31,7 @@
     mode: 0755
 
 - name: Install node_exporter service definition
-  copy:
+  ansible.builtin.copy:
     src: node_exporter.service
     dest: /etc/systemd/system/node_exporter.service
     owner: root

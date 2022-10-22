@@ -7,7 +7,7 @@
     name: UTC
 
 - name: Install Docker Compose file
-  copy:
+  ansible.builtin.copy:
     src: docker-compose.yml
     dest: /srv/docker-compose.yml
     owner: root
@@ -15,7 +15,7 @@
     mode: 0644
 
 - name: Install Traefik configuration files
-  copy:
+  ansible.builtin.copy:
     src: traefik
     dest: /opt
     owner: root

@@ -63,7 +63,7 @@
     group: root
     mode: 0644
   notify:
-    - Restart unattended-upgrades.service
+    - Restart unattended-upgrades
 
 - name: Configure apticron
   ansible.builtin.copy:
@@ -88,3 +88,21 @@
     owner: root
     group: root
     mode: 0755
+
+- name: Create journald config directory
+  ansible.builtin.file:
+    path: /etc/systemd/journald.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Configure journald
+  ansible.builtin.copy:
+    src: journald.conf
+    dest: /etc/systemd/journald.conf.d/xjupiter.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart systemd journald

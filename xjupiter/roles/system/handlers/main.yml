@@ -3,7 +3,12 @@
   command:
     cmd: /usr/sbin/update-grub
 
-- name: Restart unattended-upgrades.service
+- name: Restart unattended-upgrades
   ansible.builtin.systemd:
     state: restarted
     name: unattended-upgrades
+
+- name: Restart systemd journald
+  ansible.builtin.systemd:
+    state: restarted
+    name: systemd-journald

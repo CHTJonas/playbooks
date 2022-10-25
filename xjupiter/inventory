@@ -1,3 +1,4 @@
+strephon	ansible_user=root ansible_host=strephon.xjupiter.net
 casilda		ansible_user=root ansible_host=casilda.xjupiter.net
 florian		ansible_user=root ansible_host=florian.xjupiter.net
 corcoran	ansible_user=root ansible_host=corcoran.xjupiter.net
@@ -6,3 +7,31 @@ frederic	ansible_user=root ansible_host=frederic.xjupiter.net
 hildebrand	ansible_user=root ansible_host=hildebrand.xjupiter.net
 blanche		ansible_user=root ansible_host=blanche.xjupiter.net
 gianetta	ansible_user=root ansible_host=gianetta.xjupiter.net
+
+[mythic]
+strephon
+
+[latham]
+casilda
+florian
+corcoran
+josephine
+frederic
+hildebrand
+blanche
+gianetta
+
+[hypervisors]
+casilda
+
+[webservers]
+corcoran
+
+[influxdbservers]
+frederic
+
+[authdnsservers]
+hildebrand
+
+[proxyservers]
+blanche

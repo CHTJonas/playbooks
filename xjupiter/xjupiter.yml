@@ -3,9 +3,7 @@
   vars_files:
     - vars/vault.yml
   roles:
-    - resolvconf
     - system
-    - getty
     - firewall
     - ssh
     - mta
@@ -13,42 +11,38 @@
     - users
     - telegraf
 
-- hosts: casilda
+- hosts: mythic
+  roles:
+    - resolvconf
+
+- hosts: latham
+  roles:
+    - resolvconf
+    - getty
+
+- hosts: hypervisors
   roles:
     - virt
 
-- hosts: corcoran
-  vars_files:
-    - vars/dehydrated_corcoran.yml
-    - vars/apache_corcoran.yml
-    - vars/restic_corcoran.yml
+- hosts: webservers
   roles:
     - dehydrated
     - apache
     - restic
 
-- hosts: frederic
-  vars_files:
-    - vars/dehydrated_frederic.yml
-    - vars/nginx_frederic.yml
+- hosts: influxdbservers
   roles:
     - dehydrated
     - nginx
     - influx
 
-- hosts: hildebrand
-  vars_files:
-    - vars/knot_hildebrand.yml
-    - vars/dehydrated_hildebrand.yml
-    - vars/nginx_hildebrand.yml
+- hosts: authdnsservers
   roles:
     - knot
     - ddnsd
     - dehydrated
     - nginx
 
-- hosts: blanche
-  vars_files:
-    - vars/haproxy_blanche.yml
+- hosts: proxyservers
   roles:
     - haproxy

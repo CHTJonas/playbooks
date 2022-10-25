@@ -5,6 +5,13 @@
     enabled: no
     state: stopped
 
+- name: Remove resolvconf package
+  ansible.builtin.apt:
+    state: absent
+    purge: yes
+    pkg:
+      - resolvconf
+
 - name: Install /etc/resolv.conf file
   ansible.builtin.template:
     src: resolv.conf.j2

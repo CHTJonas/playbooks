@@ -20,29 +20,29 @@
     - resolvconf
     - getty
 
-- hosts: hypervisors
+- hosts: casilda
   roles:
     - virt
 
-- hosts: webservers
+- hosts: corcoran
   roles:
     - dehydrated
     - apache
     - restic
 
-- hosts: influxdbservers
+- hosts: frederic
   roles:
     - dehydrated
     - nginx
     - influx
 
-- hosts: authdnsservers
+- hosts: hildebrand
   roles:
     - knot
     - ddnsd
     - dehydrated
     - nginx
 
-- hosts: proxyservers
+- hosts: blanche
   roles:
     - haproxy

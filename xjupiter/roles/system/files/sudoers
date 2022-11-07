@@ -1,0 +1,4 @@
+# This file is managed by Ansible
+
+mailfrom "root@xjupiter.net"
+mailto "root@xjupiter.net"

@@ -23,7 +23,7 @@
     home: /var/lib/knot
     shell: /usr/sbin/nologin
 
-- name: Install ddnsd sudoers config
+- name: Install sudoers configuration file
   ansible.builtin.copy:
     src: ddnsd
     dest: /etc/sudoers.d/ddnsd

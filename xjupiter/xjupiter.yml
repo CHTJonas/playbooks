@@ -51,3 +51,8 @@
 - hosts: blanche
   roles:
     - haproxy
+
+- hosts: strephon
+  roles:
+    - dehydrated
+    - nginx

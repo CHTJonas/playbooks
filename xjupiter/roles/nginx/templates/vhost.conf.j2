@@ -58,10 +58,14 @@ server {
 		proxy_set_header X-Real-IP         $remote_addr;
 		proxy_set_header Upgrade           $http_upgrade;
 
-		proxy_connect_timeout       10;
-		proxy_send_timeout          10;
-		proxy_read_timeout          10;
-		send_timeout                10;
+		proxy_set_header X-Real-Port              $remote_port;
+		proxy_set_header X-Forwarded-Server-Proto $server_protocol;
+		proxy_set_header X-Forwarded-SNI          $ssl_server_name;
+
+		proxy_connect_timeout       120;
+		proxy_send_timeout          120;
+		proxy_read_timeout          120;
+		send_timeout                120;
 
 {% if item.customblock is defined %}
 # Custom block

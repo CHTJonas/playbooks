@@ -5,6 +5,7 @@
 
 [agent]
   hostname = "{{ ansible_host }}"
+  snmp_translator = "gosmi"
 
 [[outputs.influxdb]]
   urls = ["$TELEGRAF_INFLUX_ENDPOINT"]

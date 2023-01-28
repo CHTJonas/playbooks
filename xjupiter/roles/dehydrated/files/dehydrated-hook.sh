@@ -18,6 +18,7 @@ shift
 
 case $action in
     deploy_challenge)
+        echo "   >  running deploy_challenge hooks"
         group_args "$@"
         echo -ne "$ARGS" | while read domain filename token; do
             echo "   >  updating DNS record for $domain with $token"
@@ -50,8 +51,8 @@ case $action in
             done
         done
         ;;
-    clean_challenge)
-        echo "   >  running clean_challenge hooks"
-        exec /usr/bin/run-parts -v /etc/dehydrated/clean_challenge-hooks
+    deploy_cert)
+        echo "   >  running deploy_cert hooks"
+        exec /usr/bin/run-parts -v /etc/dehydrated/deploy_cert-hooks
         ;;
 esac

@@ -7,9 +7,14 @@
     pkg:
       - dehydrated
 
-- name: Ensure directory for clean_challenge hooks is present
+- name: Ensure directory for clean_challenge hooks is absent
   ansible.builtin.file:
     path: /etc/dehydrated/clean_challenge-hooks
+    state: absent
+
+- name: Ensure directory for deploy_cert hooks is present
+  ansible.builtin.file:
+    path: /etc/dehydrated/deploy_cert-hooks
     state: directory
     owner: root
     group: root

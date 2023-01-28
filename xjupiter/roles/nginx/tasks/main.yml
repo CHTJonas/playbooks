@@ -63,10 +63,10 @@
   notify:
     - Reload Nginx
 
-- name: Install dehydrated clean_challenge hook
+- name: Install dehydrated deploy_cert hook
   ansible.builtin.copy:
     src: reload-nginx
-    dest: /etc/dehydrated/clean_challenge-hooks/reload-nginx
+    dest: /etc/dehydrated/deploy_cert-hooks/reload-nginx
     owner: root
     group: root
     mode: 0755

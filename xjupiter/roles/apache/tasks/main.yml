@@ -107,10 +107,10 @@
   notify:
     - Reload Apache
 
-- name: Install dehydrated clean_challenge hook
+- name: Install dehydrated deploy_cert hook
   ansible.builtin.copy:
     src: reload-apache
-    dest: /etc/dehydrated/clean_challenge-hooks/reload-apache
+    dest: /etc/dehydrated/deploy_cert-hooks/reload-apache
     owner: root
     group: root
     mode: 0755

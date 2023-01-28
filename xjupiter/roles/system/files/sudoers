@@ -1,4 +1,4 @@
 # This file is managed by Ansible
 
-mailfrom "root@xjupiter.net"
-mailto "root@xjupiter.net"
+Defaults	mailfrom="root@xjupiter.net"
+Defaults	mailto="admin@xjupiter.net"

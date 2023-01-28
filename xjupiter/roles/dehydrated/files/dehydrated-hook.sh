@@ -55,4 +55,8 @@ case $action in
         echo "   >  running deploy_cert hooks"
         exec /usr/bin/run-parts -v /etc/dehydrated/deploy_cert-hooks
         ;;
+    invalid_challenge)
+        echo "   >  running invalid_challenge hook"
+        echo "LetsEncrypt challenge for $1 was invalid" | mail -s "Dehydrated Renewal Failed" admin@xjupiter.net
+        ;;
 esac

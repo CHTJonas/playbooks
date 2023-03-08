@@ -52,6 +52,7 @@ server {
 {% endif %}
 
 	location / {
+		proxy_set_header X-Request-Id      $request_id;
 		proxy_set_header Host              $http_host;
 		proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
 		proxy_set_header X-Forwarded-Proto $scheme;
@@ -60,7 +61,12 @@ server {
 
 		proxy_set_header X-Real-Port              $remote_port;
 		proxy_set_header X-Forwarded-Server-Proto $server_protocol;
+
+		#proxy_set_header X-Forwarded-ALPN         $ssl_alpn_protocol;
 		proxy_set_header X-Forwarded-SNI          $ssl_server_name;
+		proxy_set_header X-Forwarded-SSL-Proto    $ssl_protocol;
+		#proxy_set_header X-Forwarded-KEX          $ssl_curve;
+		proxy_set_header X-Forwarded-Cipher       $ssl_cipher;
 
 		proxy_connect_timeout       120;
 		proxy_send_timeout          120;

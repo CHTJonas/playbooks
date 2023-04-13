@@ -12,6 +12,7 @@
 - name: Install Knot server and utilities
   ansible.builtin.apt:
     install_recommends: no
+    update_cache: yes
     pkg:
       - knot
       - knot-dnsutils
@@ -27,6 +28,7 @@
 
 - name: Enable and start systemd unit
   ansible.builtin.systemd:
+    daemon_reload: yes
     name: knot.service
     state: started
     enabled: yes

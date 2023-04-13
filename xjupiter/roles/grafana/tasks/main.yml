@@ -1,0 +1,32 @@
+---
+- name: Install Grafana signing key
+  ansible.builtin.get_url:
+    url: https://apt.grafana.com/gpg.key
+    dest: /etc/apt/keyrings/grafana.gpg
+
+- name: Install Grafana repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main"
+    filename: grafana
+
+- name: Install Grafana server OSS release
+  ansible.builtin.apt:
+    install_recommends: no
+    pkg:
+      - grafana
+
+- name: Install Grafana config file
+  ansible.builtin.copy:
+    src: knot.conf
+    dest: /etc/knot/knot.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart Knot
+
+- name: Enable and start Grafana systemd unit
+  ansible.builtin.systemd:
+    name: grafana-server.service
+    state: started
+    enabled: yes
+    masked: no

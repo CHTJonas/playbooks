@@ -1,0 +1,15 @@
+---
+- name: Reload Knot
+  ansible.builtin.systemd:
+    state: reloaded
+    name: knot
+
+- name: Restart Knot
+  ansible.builtin.systemd:
+    state: restarted
+    name: knot
+
+- name: Reload nftables
+  ansible.builtin.systemd:
+    state: reloaded
+    name: nftables

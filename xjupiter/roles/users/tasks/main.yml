@@ -32,4 +32,4 @@
 - name: Add chtjonas SSH authorized_keys
   ansible.posix.authorized_key:
     user: chtjonas
-    key: https://id.charliejonas.co.uk/authorized_keys
+    key: https://id.charliejonas.co.uk/secure/authorized_keys

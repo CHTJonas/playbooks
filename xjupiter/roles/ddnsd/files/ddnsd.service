@@ -1,3 +1,5 @@
+# This file is managed by Ansible
+
 [Unit]
 Description=dynamic DNS daemon
 Documentation=https://github.com/CHTJonas/ddnsd

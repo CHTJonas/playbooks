@@ -1,1 +1,3 @@
+# This file is managed by Ansible
+
 ddnsd ALL=(knot) NOPASSWD:/usr/sbin/knotc zone-reload ddns.xjupiter.net

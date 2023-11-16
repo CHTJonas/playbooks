@@ -1,3 +1,4 @@
 #!/bin/bash
+# This file is managed by Ansible
 
 exec /usr/bin/sudo -u knot /usr/sbin/knotc zone-reload ddns.xjupiter.net

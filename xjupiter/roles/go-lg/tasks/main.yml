@@ -1,0 +1,39 @@
+---
+- name: Download go-lg executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.charliejonas.co.uk/software/dist/go-lg-2.1.0/go-lg-linux-2.1.0-amd64
+    dest: /usr/local/bin/go-lg
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify: Restart go-lg
+  when: ansible_architecture == 'x86_64'
+
+- name: Download go-lg executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.charliejonas.co.uk/software/dist/go-lg-2.1.0/go-lg-linux-2.1.0-arm64
+    dest: /usr/local/bin/go-lg
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify: Restart go-lg
+  when: ansible_architecture == 'aarch64'
+
+- name: Install go-lg service unit file
+  ansible.builtin.copy:
+    src: go-lg.service
+    dest: /etc/systemd/system/go-lg.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart go-lg
+
+- name: Start go-lg and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: go-lg
+    enabled: yes
+    state: started
+    masked: no

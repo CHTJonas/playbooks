@@ -56,3 +56,4 @@
   roles:
     - dehydrated
     - nginx
+    - go-lg

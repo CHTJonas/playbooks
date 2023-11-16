@@ -1,0 +1,5 @@
+---
+- name: Restart go-lg
+  ansible.builtin.systemd:
+    state: restarted
+    name: go-lg

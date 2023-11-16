@@ -1,6 +1,7 @@
+# This file is managed by Ansible
+
 {% for ns in resolvconf_nameservers %}
 nameserver {{ ns }}
 {% endfor %}
 search xjupiter.net
-domain xjupiter.net
-options edns0 trust-ad
+options rotate edns0 trust-ad

@@ -33,3 +33,16 @@
   ansible.posix.authorized_key:
     user: chtjonas
     key: https://id.charliejonas.co.uk/secure/authorized_keys
+
+- name: Clone dotfiles repo
+  ansible.builtin.git:
+    bare: true
+    dest: /home/chtjonas/.dotfiles
+    repo: 'https://CHTJonas:{{ github_dotfiles_token }}@github.com/CHTJonas/dotfiles.git'
+  become: true
+  become_user: chtjonas
+
+- name: Setup dotfiles repo
+  command: git --git-dir=/home/chtjonas/.dotfiles config status.showUntrackedFiles no
+  become: true
+  become_user: chtjonas

@@ -1,4 +1,14 @@
 ---
+- name: Install Z shell
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - zsh
+      - zsh-doc
+      - zsh-syntax-highlighting
+
 - name: Remove default user
   ansible.builtin.user:
     name: ubuntu
@@ -22,7 +32,7 @@
     uid: 1001
     group: chtjonas
     groups: [sudo, adm]
-    shell: /bin/bash
+    shell: /bin/zsh
 
 - name: Add root SSH authorized_keys
   ansible.posix.authorized_key:
@@ -43,6 +53,8 @@
   become_user: chtjonas
 
 - name: Setup dotfiles repo
-  command: git --git-dir=/home/chtjonas/.dotfiles config status.showUntrackedFiles no
+  shell: |
+    git --git-dir=/home/chtjonas/.dotfiles config status.showUntrackedFiles no
+    git --git-dir=/home/chtjonas/.dotfiles remote set-url --push origin git@github.com:CHTJonas/dotfiles.git
   become: true
   become_user: chtjonas

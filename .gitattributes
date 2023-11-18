@@ -1,0 +1,3 @@
+xjupiter/group_vars/*.yml diff=ansible-vault merge=binary
+xjupiter/host_vars/*.yml diff=ansible-vault merge=binary
+xjupiter/vars_vars/*.yml diff=ansible-vault merge=binary

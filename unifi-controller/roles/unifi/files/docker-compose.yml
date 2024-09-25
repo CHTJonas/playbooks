@@ -13,8 +13,8 @@ services:
       - /opt/mongo/data:/data/db
 
   unifi-controller:
-    # v8.2.93 linux/amd64
-    image: jacobalberty/unifi@sha256:46703baedff70ec73fc39bf206349f53aba77f498105b43d61b28857d1c87678
+    # v8.3.32 linux/amd64
+    image: jacobalberty/unifi@sha256:ab0aaa6271af065f92058da5906fc33cf5466513a30188618dbf1e501dc3ea6d
     restart: always
     init: true
     labels:

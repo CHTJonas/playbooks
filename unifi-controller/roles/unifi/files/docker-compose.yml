@@ -46,7 +46,7 @@ services:
     ports:
       - "3478:3478/udp"   # STUN
       - "6789:6789/tcp"   # Speed test
-      - "8080:8080/tcp"   # Device/ controller comm.
+      - "8080:8080/tcp"   # Device/controller communication
       - "8443:8443/tcp"   # Controller GUI/API as seen in a web browser
       - "8880:8880/tcp"   # HTTP portal redirection
       - "8843:8843/tcp"   # HTTPS portal redirection
@@ -54,8 +54,8 @@ services:
       - "5514:5514/udp"   # Remote logging
 
   traefik:
-    # v2.4.14 linux/amd64
-    image: traefik@sha256:d6039a8a87021d99b45aafdad699e63fbf388917d2e934e66e20d9e46854ba6f
+    # v2.11.10 linux/amd64
+    image: traefik@sha256:296f3ceb14c5da2b5c97bcf54181325292996d9b8dde752162b5af0e0d8b0847
     restart: always
     ports:
       - "80:80"

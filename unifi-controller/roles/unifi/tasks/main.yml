@@ -1,6 +1,6 @@
 ---
 - name: Stop any pre-existing Docker containers
-  shell: "test -f /srv/docker-compose.yml && cd /srv && docker-compose down || true"
+  shell: "test -f /srv/docker-compose.yml && cd /srv && docker compose down || true"
 
 - name: Set timezone to UTC
   timezone:
@@ -31,4 +31,4 @@
     mode: 0400
 
 - name: Start all Docker containers
-  shell: "cd /srv && docker-compose up -d"
+  shell: "cd /srv && docker compose up -d"

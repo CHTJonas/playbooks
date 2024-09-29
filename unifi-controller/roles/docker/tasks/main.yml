@@ -20,11 +20,8 @@
   apt:
     force_apt_get: yes
     install_recommends: no
-    name: "docker-ce"
+    name: "docker-ce docker-compose-plugin"
     update_cache: no
-
-- name: Install Docker Compose
-  shell: 'curl -sSL "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
 
 - name: Ensure Docker service starts at boot
   systemd:

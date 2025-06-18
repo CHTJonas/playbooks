@@ -1,0 +1,5 @@
+---
+- name: Restart httpdebugd
+  ansible.builtin.systemd:
+    state: restarted
+    name: httpdebugd

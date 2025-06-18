@@ -1,0 +1,39 @@
+---
+- name: Download httpdebugd executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.charliejonas.co.uk/software/dist/httpdebugd-0.4.0/httpdebugd-linux-0.4.0-amd64
+    dest: /usr/local/bin/httpdebugd
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify: Restart httpdebugd
+  when: ansible_architecture == 'x86_64'
+
+- name: Download httpdebugd executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.charliejonas.co.uk/software/dist/httpdebugd-0.4.0/httpdebugd-linux-0.4.0-arm64
+    dest: /usr/local/bin/httpdebugd
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  notify: Restart httpdebugd
+  when: ansible_architecture == 'aarch64'
+
+- name: Install httpdebugd service unit file
+  ansible.builtin.copy:
+    src: httpdebugd.service
+    dest: /usr/local/lib/systemd/system/httpdebugd.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart httpdebugd
+
+- name: Start httpdebugd and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: httpdebugd
+    enabled: yes
+    state: started
+    masked: no

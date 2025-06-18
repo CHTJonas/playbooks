@@ -1,0 +1,67 @@
+# This file is managed by Ansible
+
+[Unit]
+After=network.target
+
+[Service]
+DynamicUser=true
+Type=simple
+ExecStart=/usr/local/bin/httpdebugd serve -b localhost:8082
+Restart=always
+
+# Capabilities
+CapabilityBoundingSet=CAP_NET_RAW
+AmbientCapabilities=CAP_NET_RAW
+
+# Security
+NoNewPrivileges=true
+
+# Process properties
+KeyringMode=private
+
+# Filesystem occlusion
+BindReadOnlyPaths=/usr/local/bin/httpdebugd
+BindReadOnlyPaths=/lib/x86_64-linux-gnu /lib64
+BindReadOnlyPaths=/usr/bin/ping /usr/bin/mtr /usr/bin/mtr-packet /usr/bin/whois /usr/bin/host /usr/bin/dig
+BindReadOnlyPaths=/etc/ethertypes /etc/netconfig /etc/services /etc/gai.conf
+BindReadOnlyPaths=/etc/environment /etc/host.conf /etc/hostname /etc/hosts /etc/resolv.conf
+TemporaryFileSystem=/bin:ro
+TemporaryFileSystem=/boot:ro
+TemporaryFileSystem=/etc:ro
+TemporaryFileSystem=/lib32:ro
+TemporaryFileSystem=/libx32:ro
+TemporaryFileSystem=/media:ro
+TemporaryFileSystem=/mnt:ro
+TemporaryFileSystem=/opt:ro
+TemporaryFileSystem=/run:ro
+TemporaryFileSystem=/sbin:ro
+TemporaryFileSystem=/srv:ro
+TemporaryFileSystem=/usr:ro
+TemporaryFileSystem=/var:ro
+PrivateTmp=true
+
+# Process sandboxing
+ProtectHome=tmpfs
+ProtectSystem=strict
+PrivateDevices=true
+ProtectHostname=true
+ProtectClock=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+PrivateMounts=true
+
+# System call filtering
+SystemCallFilter=@system-service
+SystemCallFilter=~@chown
+SystemCallFilter=~@mount
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

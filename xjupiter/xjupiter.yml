@@ -21,6 +21,11 @@
     - resolvconf
     - getty
 
+- hosts: old-vic
+  roles:
+    - resolvconf
+    - getty
+
 - hosts: casilda
   roles:
     - virt

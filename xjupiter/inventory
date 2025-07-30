@@ -7,6 +7,7 @@ frederic	ansible_user=root ansible_host=frederic.xjupiter.net
 hildebrand	ansible_user=root ansible_host=hildebrand.xjupiter.net
 blanche		ansible_user=root ansible_host=blanche.xjupiter.net
 gianetta	ansible_user=root ansible_host=gianetta.xjupiter.net
+charon	ansible_user=root ansible_host=charon.server.old-vic.jfdn.net
 
 [mythic]
 strephon
@@ -20,3 +21,6 @@ frederic
 hildebrand
 blanche
 gianetta
+
+[old-vic]
+charon

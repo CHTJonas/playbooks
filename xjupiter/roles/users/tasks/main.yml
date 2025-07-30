@@ -9,16 +9,22 @@
       - zsh-doc
       - zsh-syntax-highlighting
 
-- name: Remove default user
+- name: Remove default users
   ansible.builtin.user:
-    name: ubuntu
+    name: "{{ item }}"
     state: absent
     remove: yes
+  loop:
+    - ubuntu
+    - pi
 
-- name: Remove default group
+- name: Remove default groups
   ansible.builtin.group:
-    name: ubuntu
+    name: "{{ item }}"
     state: absent
+  loop:
+    - ubuntu
+    - pi
 
 - name: Add chtjonas group
   ansible.builtin.group:

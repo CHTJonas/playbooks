@@ -3,10 +3,11 @@
   vars_files:
     - vars/vault.yml
   roles:
+    - hosts
+    - mta
     - system
     - firewall
     - ssh
-    - mta
     - packages
     - users
     - telegraf

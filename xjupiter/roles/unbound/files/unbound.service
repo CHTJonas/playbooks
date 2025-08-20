@@ -1,0 +1,16 @@
+[Unit]
+Description=Unbound DNS server
+After=network-online.target
+Before=nss-lookup.target
+Wants=nss-lookup.target
+
+[Service]
+Type=simple
+Restart=on-failure
+#ExecStartPre=/opt/unbound-current/sbin/unbound-anchor -a /opt/unbound-current/etc/unbound/keys/root.key -4v
+ExecStart=/opt/unbound-current/sbin/unbound
+ExecReload=/opt/unbound-current/sbin/unbound-control reload_keep_cache
+PIDFile=/opt/unbound-current/etc/unbound/unbound.pid
+
+[Install]
+WantedBy=multi-user.target

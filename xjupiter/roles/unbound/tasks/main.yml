@@ -1,0 +1,40 @@
+---
+- name: Add Unbound group
+  ansible.builtin.group:
+    name: unbound
+    gid: 116
+
+- name: Add Unbound user
+  ansible.builtin.user:
+    name: unbound
+    uid: 110
+    group: unbound
+    shell: /usr/sbin/nologin
+    create_home: false
+    home: /nonexistent
+
+- name: Install Unbound service unit file
+  ansible.builtin.copy:
+    src: unbound.service
+    dest: /usr/local/lib/systemd/system/unbound.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart Unbound
+
+- name: Start Unbound and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: unbound
+    enabled: yes
+    state: started
+    masked: no
+
+- name: Install Unbound firewall rule
+  ansible.builtin.copy:
+    src: unbound-nft.conf
+    dest: /etc/nftables/unbound.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify: Reload nftables

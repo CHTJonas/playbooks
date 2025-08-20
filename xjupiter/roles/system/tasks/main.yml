@@ -114,3 +114,11 @@
     owner: root
     group: root
     mode: 0440
+
+- name: Ensure directory for systemd unit files is present
+  ansible.builtin.file:
+    path: /usr/local/lib/systemd/system
+    state: directory
+    owner: root
+    group: root
+    mode: 0755

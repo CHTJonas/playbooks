@@ -3,5 +3,5 @@
 {% for ns in resolvconf_nameservers %}
 nameserver {{ ns }}
 {% endfor %}
-search xjupiter.net
+domain {{ ansible_host[ansible_host.index('.') + 1:] }}
 options rotate edns0 trust-ad

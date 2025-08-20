@@ -1,9 +1,29 @@
 ---
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Install NetworkManager hook
+  ansible.builtin.copy:
+    src: 90-dns-none.conf
+    dest: /etc/NetworkManager/conf.d/90-dns-none.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload NetworkManager
+  when: "'network-manager' in ansible_facts.packages"
+
+- name: Check if systemd-resolve executable exists
+  stat:
+    path: /usr/bin/systemd-resolve
+  register: systemd_resolve
+
 - name: Stop systemd-resolved and disable at boot
   ansible.builtin.systemd:
     name: systemd-resolved
     enabled: no
     state: stopped
+  when: "'systemd-resolved' in ansible_facts.packages or systemd_resolve.stat.exists"
 
 - name: Remove resolvconf package
   ansible.builtin.apt:
@@ -11,6 +31,11 @@
     purge: yes
     pkg:
       - resolvconf
+
+- name: Remove resolvconf directory
+  ansible.builtin.file:
+    state: absent
+    path: /etc/resolvconf
 
 - name: Install /etc/resolv.conf file
   ansible.builtin.template:

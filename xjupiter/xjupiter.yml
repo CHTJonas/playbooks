@@ -19,11 +19,13 @@
 - hosts: latham
   roles:
     - resolvconf
+    - timesyncd
     - getty
 
 - hosts: old-vic
   roles:
     - resolvconf
+    - timesyncd
     - getty
 
 - hosts: casilda

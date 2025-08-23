@@ -39,6 +39,7 @@
     owner: root
     group: root
     mode: 0755
+  notify: Restart ddnsd
   when: ansible_architecture == 'x86_64'
 
 - name: Download ddnsd executable (arm64)
@@ -49,6 +50,7 @@
     owner: root
     group: root
     mode: 0755
+  notify: Restart ddnsd
   when: ansible_architecture == 'aarch64'
 
 - name: Install ddns zone reload script
@@ -66,6 +68,7 @@
     owner: root
     group: root
     mode: 0644
+  notify: Restart ddnsd
 
 - name: Start ddnsd and enable at boot
   ansible.builtin.systemd:
@@ -73,3 +76,4 @@
     name: ddnsd
     enabled: yes
     state: started
+    masked: no

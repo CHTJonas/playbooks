@@ -16,6 +16,7 @@
     mode: 0644
   notify:
     - Reload systemd
+    - Restart HAProxy
 
 - name: Install HAProxy
   ansible.builtin.apt:
@@ -46,6 +47,7 @@
 
 - name: Enable and start HAProxy systemd unit
   ansible.builtin.systemd:
+    daemon_reload: yes
     name: haproxy.service
     state: started
     enabled: yes

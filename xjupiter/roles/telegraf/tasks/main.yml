@@ -98,10 +98,12 @@
     owner: root
     group: root
     mode: 0644
+  notify: Restart telegraf
 
 - name: Start telegraf and enable at boot
   ansible.builtin.systemd:
     daemon_reload: yes
-    name: 'telegraf'
+    name: telegraf
     enabled: yes
     state: started
+    masked: no

@@ -68,6 +68,7 @@
     owner: root
     group: root
     mode: 0755
+  notify: Restart influxdb
   when: ansible_architecture == 'x86_64'
 
 - name: Download influxd executable (arm64)
@@ -78,6 +79,7 @@
     owner: root
     group: root
     mode: 0755
+  notify: Restart influxdb
   when: ansible_architecture == 'aarch64'
 
 - name: Install influxdb service unit file
@@ -95,3 +97,4 @@
     name: influxdb
     enabled: yes
     state: started
+    masked: no

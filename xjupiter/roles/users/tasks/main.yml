@@ -50,17 +50,17 @@
     user: chtjonas
     key: https://id.charliejonas.co.uk/secure/authorized_keys
 
-- name: Clone dotfiles repo
-  ansible.builtin.git:
-    bare: true
-    dest: /home/chtjonas/.dotfiles
-    repo: 'https://CHTJonas:{{ github_dotfiles_token }}@github.com/CHTJonas/dotfiles.git'
-  become: true
-  become_user: chtjonas
+# - name: Clone dotfiles repo
+#   ansible.builtin.git:
+#     bare: true
+#     dest: /home/chtjonas/.dotfiles
+#     repo: 'https://CHTJonas:{{ github_dotfiles_token }}@github.com/CHTJonas/dotfiles.git'
+#   become: true
+#   become_user: chtjonas
 
-- name: Setup dotfiles repo
-  shell: |
-    git --git-dir=/home/chtjonas/.dotfiles config status.showUntrackedFiles no
-    git --git-dir=/home/chtjonas/.dotfiles remote set-url --push origin git@github.com:CHTJonas/dotfiles.git
-  become: true
-  become_user: chtjonas
+# - name: Setup dotfiles repo
+#   shell: |
+#     git --git-dir=/home/chtjonas/.dotfiles config status.showUntrackedFiles no
+#     git --git-dir=/home/chtjonas/.dotfiles remote set-url --push origin git@github.com:CHTJonas/dotfiles.git
+#   become: true
+#   become_user: chtjonas

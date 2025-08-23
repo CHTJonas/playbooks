@@ -13,3 +13,4 @@
       - apport
       - debian-faq
       - laptop-detect
+      - os-prober

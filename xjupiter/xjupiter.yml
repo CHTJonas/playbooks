@@ -70,3 +70,4 @@
 - hosts: charon
   roles:
     - unbound
+    - chrony

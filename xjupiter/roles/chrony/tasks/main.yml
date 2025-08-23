@@ -1,0 +1,64 @@
+---
+- name: Stop systemd-timesyncd and disable at boot
+  ansible.builtin.systemd:
+    name: systemd-timesyncd
+    enabled: no
+    masked: yes
+    state: stopped
+
+- name: Install chrony
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - chrony
+
+- name: Comment out built-in NTP servers from default chrony config file
+  ansible.builtin.replace:
+    path: /etc/chrony/chrony.conf
+    regexp: '^(peer|pool|server.*)'
+    replace: '#\1'
+  notify: Restart chrony
+
+- name: Comment out DHCP NTP servers from default chrony config file
+  ansible.builtin.replace:
+    path: /etc/chrony/chrony.conf
+    regexp: '^(?!\#)(.*chrony-dhcp.*)'
+    replace: '#\1'
+  notify: Restart chrony
+
+- name: Install chrony config file
+  ansible.builtin.copy:
+    src: xjupiter.conf
+    dest: /etc/chrony/conf.d/xjupiter.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart chrony
+
+- name: Install chrony sources file
+  ansible.builtin.copy:
+    src: netnod.sources
+    dest: /etc/chrony/sources.d/netnod.sources
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart chrony
+
+- name: Install chrony firewall rule
+  ansible.builtin.copy:
+    src: chrony-nft.conf
+    dest: /etc/nftables/chrony.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify: Reload nftables
+
+- name: Start chrony and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: chrony
+    state: started
+    enabled: yes
+    masked: no

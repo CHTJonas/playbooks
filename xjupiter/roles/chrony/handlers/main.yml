@@ -1,0 +1,10 @@
+---
+- name: Reload nftables
+  ansible.builtin.systemd:
+    state: reloaded
+    name: nftables
+
+- name: Restart chrony
+  ansible.builtin.systemd:
+    state: restarted
+    name: chrony

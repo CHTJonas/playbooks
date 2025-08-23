@@ -16,6 +16,10 @@
     mode: 0644
   notify: Restart timesyncd
 
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
 - name: Start timesyncd and enable at boot
   ansible.builtin.systemd:
     daemon_reload: yes
@@ -23,3 +27,4 @@
     enabled: yes
     state: started
     masked: no
+  when: "'chrony' not in ansible_facts.packages"

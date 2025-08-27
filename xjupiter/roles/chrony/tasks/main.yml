@@ -14,6 +14,22 @@
     pkg:
       - chrony
 
+- name: Determine if system has a proper RTC
+  ansible.builtin.lineinfile:
+    dest: /proc/cpuinfo
+    regexp: "Raspberry Pi"
+  check_mode: yes
+  register: presence
+  failed_when: presence.changed
+
+- name: Adjust built-in DAEMON_OPTS
+  ansible.builtin.replace:
+    path: /etc/default/chrony
+    regexp: '^DAEMON_OPTS=.*'
+    replace: 'DAEMON_OPTS="-F 1 -s"'
+  notify: Restart chrony
+  when: presence is not changed
+
 - name: Comment out built-in NTP servers from default chrony config file
   ansible.builtin.replace:
     path: /etc/chrony/chrony.conf

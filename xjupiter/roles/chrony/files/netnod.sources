@@ -1,15 +1,12 @@
 # This file is managed by Ansible
 
-# These directives specify the NTP servers.
-# They are a mixture of IPv4 and IPv6.
-# All should support NTS.
-server gbg1.nts.netnod.se nts iburst prefer
-server gbg2.nts.netnod.se nts iburst prefer
-server lul1.nts.netnod.se nts iburst prefer
-server lul2.nts.netnod.se nts iburst prefer
-server mmo1.nts.netnod.se nts iburst prefer
-server mmo2.nts.netnod.se nts iburst prefer
-server sth1.nts.netnod.se nts iburst prefer
-server sth2.nts.netnod.se nts iburst prefer
-server svl1.nts.netnod.se nts iburst prefer
-server svl2.nts.netnod.se nts iburst prefer
+server gbg1.nts.netnod.se nts iburst
+server gbg2.nts.netnod.se nts iburst
+server lul1.nts.netnod.se nts iburst
+server lul2.nts.netnod.se nts iburst
+server mmo1.nts.netnod.se nts iburst
+server mmo2.nts.netnod.se nts iburst
+server sth1.nts.netnod.se nts iburst
+server sth2.nts.netnod.se nts iburst
+server svl1.nts.netnod.se nts iburst
+server svl2.nts.netnod.se nts iburst

@@ -1,0 +1,17 @@
+---
+- name: Install apcupsd
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - apcupsd
+
+- name: Install apcupsd config file
+  ansible.builtin.template:
+    src: apcupsd.conf.j2
+    dest: /etc/apcupsd/apcupsd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart apcupsd

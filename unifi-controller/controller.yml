@@ -5,6 +5,6 @@
     swap_file_size_mb: '1024'
     swap_swappiness: '20'
   roles:
-    - geerlingguy.swap
+    # - geerlingguy.swap
     - docker
     - unifi

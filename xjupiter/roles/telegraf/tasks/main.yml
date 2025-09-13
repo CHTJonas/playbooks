@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     pkg: telegraf
     state: absent
+    autoremove: yes
     purge: yes
 
 - name: Install conntrack kernel modules

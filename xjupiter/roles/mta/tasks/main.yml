@@ -11,6 +11,7 @@
 - name: Ensure no other MTA is installed
   ansible.builtin.apt:
     state: absent
+    autoremove: yes
     purge: yes
     pkg:
       - opensmtpd

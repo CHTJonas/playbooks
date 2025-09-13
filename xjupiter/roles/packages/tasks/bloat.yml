@@ -2,6 +2,7 @@
 - name: Remove some package bloat
   ansible.builtin.apt:
     state: absent
+    autoremove: yes
     purge: yes
     pkg:
       - apport

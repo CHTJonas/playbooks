@@ -4,13 +4,14 @@
     state: absent
     purge: yes
     pkg:
-      - popularity-contest
-      - pollinate
-      - sosreport
-      - whoopsie
-      - landscape-common
-      - pollen
       - apport
+      - avahi-daemon
       - debian-faq
+      - landscape-common
       - laptop-detect
       - os-prober
+      - pollen
+      - pollinate
+      - popularity-contest
+      - sosreport
+      - whoopsie

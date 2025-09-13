@@ -15,6 +15,22 @@
 - import_tasks: grub.yml
   when: grub_config.stat.exists
 
+- name: Check if host is a Raspberry Pi
+  ansible.builtin.lineinfile:
+    path: /sys/firmware/devicetree/base/model
+    regexp: '.*Raspberry Pi.*'
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: rpi
+
+- name: Adjust Raspberry Pi Linux command line
+  ansible.builtin.replace:
+    path: /boot/firmware/cmdline.txt
+    regexp: '^(.+)$'
+    replace: '\1 consoleblank=0 nosound nobluetooth'
+  when: rpi.found
+
 - name: Set timezone to UTC
   timezone:
     name: Etc/UTC

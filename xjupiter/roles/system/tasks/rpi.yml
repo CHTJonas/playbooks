@@ -2,10 +2,15 @@
 - name: Adjust Raspberry Pi Linux command line
   ansible.builtin.replace:
     path: /boot/firmware/cmdline.txt
-    regexp: '^(.+)$'
-    replace: '\1 consoleblank=0 nosound nobluetooth'
+    regexp: '^(.+) consoleblank=0$'
+    replace: '\1 consoleblank=0'
 
 - name: Remove pi user sudoers config
   ansible.builtin.file:
     state: absent
     path: /etc/sudoers.d/010_pi-nopasswd
+
+- name: Disable Bluetooth
+  ansible.builtin.lineinfile:
+    path: /boot/firmware/config.txt
+    line: dtoverlay=disable-bt

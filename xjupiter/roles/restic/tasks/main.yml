@@ -25,7 +25,7 @@
 
 - name: Download restic executable (amd64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/restic-latest-amd64
+    url: https://dl.xjupiter.net/binaries/restic-0.16.0-amd64
     dest: /usr/local/bin/restic
     force: yes
     owner: root
@@ -35,7 +35,7 @@
 
 - name: Download restic executable (arm64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/restic-latest-arm64
+    url: https://dl.xjupiter.net/binaries/restic-0.16.0-arm64
     dest: /usr/local/bin/restic
     force: yes
     owner: root

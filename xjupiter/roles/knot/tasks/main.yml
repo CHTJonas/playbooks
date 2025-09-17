@@ -103,7 +103,7 @@
 
 - name: Download mc executable (amd64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/mc-latest-amd64
+    url: https://dl.xjupiter.net/binaries/mc-RELEASE.2023-10-04T06-52-56Z-amd64
     dest: /usr/local/bin/mc
     force: yes
     owner: root
@@ -113,7 +113,7 @@
 
 - name: Download mc executable (arm64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/mc-latest-arm64
+    url: https://dl.xjupiter.net/binaries/mc-RELEASE.2023-10-04T06-52-56Z-arm64
     dest: /usr/local/bin/mc
     force: yes
     owner: root

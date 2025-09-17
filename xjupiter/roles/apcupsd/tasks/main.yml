@@ -15,3 +15,12 @@
     group: root
     mode: 0644
   notify: Restart apcupsd
+
+- name: Install apcupsd input plugin for telegraf
+  ansible.builtin.copy:
+    src: apcupsd-telegraf.conf
+    dest: /etc/telegraf/telegraf.d/apcupsd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload telegraf

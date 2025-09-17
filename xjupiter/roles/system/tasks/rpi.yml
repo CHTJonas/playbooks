@@ -14,3 +14,8 @@
   ansible.builtin.lineinfile:
     path: /boot/firmware/config.txt
     line: dtoverlay=disable-bt
+
+- name: Disable Wi-Fi
+  ansible.builtin.lineinfile:
+    path: /boot/firmware/config.txt
+    line: dtoverlay=disable-wifi

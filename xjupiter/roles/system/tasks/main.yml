@@ -24,11 +24,7 @@
   changed_when: false
   register: rpi
 
-- name: Adjust Raspberry Pi Linux command line
-  ansible.builtin.replace:
-    path: /boot/firmware/cmdline.txt
-    regexp: '^(.+)$'
-    replace: '\1 consoleblank=0 nosound nobluetooth'
+- import_tasks: rpi.yml
   when: rpi.found
 
 - name: Set timezone to UTC
@@ -105,6 +101,14 @@
     group: root
     mode: 0755
 
+- name: Create systemd unit directory
+  ansible.builtin.file:
+    path: /usr/local/lib/systemd/system
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Create journald config directory
   ansible.builtin.file:
     path: /etc/systemd/journald.conf.d
@@ -130,11 +134,3 @@
     owner: root
     group: root
     mode: 0440
-
-- name: Ensure directory for systemd unit files is present
-  ansible.builtin.file:
-    path: /usr/local/lib/systemd/system
-    state: directory
-    owner: root
-    group: root
-    mode: 0755

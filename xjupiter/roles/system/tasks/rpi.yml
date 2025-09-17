@@ -1,0 +1,6 @@
+---
+- name: Adjust Raspberry Pi Linux command line
+  ansible.builtin.replace:
+    path: /boot/firmware/cmdline.txt
+    regexp: '^(.+)$'
+    replace: '\1 consoleblank=0 nosound nobluetooth'

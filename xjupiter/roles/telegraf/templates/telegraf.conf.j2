@@ -15,29 +15,32 @@
   skip_database_creation = true
   timeout = "30s"
 
+[[inputs.conntrack]]
+
 [[inputs.cpu]]
   percpu = true
   totalcpu = true
   collect_cpu_time = false
   report_active = true
 
-[[inputs.mem]]
-
-[[inputs.swap]]
-
 [[inputs.disk]]
   ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
 
 [[inputs.diskio]]
 
-[[inputs.net]]
-
-[[inputs.conntrack]]
-
-[[inputs.netstat]]
+[[inputs.interrupts]]
+  cpu_as_tag = true
 
 [[inputs.kernel]]
 
-[[inputs.system]]
+[[inputs.mem]]
+
+[[inputs.net]]
+
+[[inputs.netstat]]
 
 [[inputs.processes]]
+
+[[inputs.swap]]
+
+[[inputs.system]]

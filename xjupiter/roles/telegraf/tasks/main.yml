@@ -72,7 +72,7 @@
 
 - name: Download telegraf executable (amd64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/telegraf-1.28.2-amd64
+    url: https://dl.xjupiter.net/binaries/telegraf-1.36.1-amd64
     dest: /usr/local/bin/telegraf
     force: yes
     owner: root
@@ -83,7 +83,7 @@
 
 - name: Download telegraf executable (arm64)
   ansible.builtin.get_url:
-    url: https://dl.xjupiter.net/binaries/telegraf-1.28.2-arm64
+    url: https://dl.xjupiter.net/binaries/telegraf-1.36.1-arm64
     dest: /usr/local/bin/telegraf
     force: yes
     owner: root

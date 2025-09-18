@@ -38,3 +38,18 @@
     group: root
     mode: 0755
   notify: Reload nftables
+
+- name: Add telegraf user to unbound group
+  ansible.builtin.user:
+    name: telegraf
+    groups: unbound
+    append: true
+
+- name: Install Unbound input plugin for telegraf
+  ansible.builtin.copy:
+    src: unbound-telegraf.conf
+    dest: /etc/telegraf/telegraf.d/unbound.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload telegraf

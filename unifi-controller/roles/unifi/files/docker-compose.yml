@@ -1,8 +1,8 @@
 ---
 services:
   mongo:
-    # v7.0.14 linux/amd64
-    image: mongo@sha256:7c7527b6cd8036e42318ce3b7db239fe975cdf31116c210b81b3579b73aa8c68
+    # v7.0.24 linux/amd64
+    image: mongo@sha256:f52818ecf4e41d1efa08b8da2c129ca91c55089b56c5d58fb9871c91757bf240
     command: --wiredTigerCacheSizeGB 0.4
     restart: always
     networks:

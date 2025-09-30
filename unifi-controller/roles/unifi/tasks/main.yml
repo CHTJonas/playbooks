@@ -1,10 +1,10 @@
 ---
 - name: Stop any pre-existing Docker containers
-  shell: "test -f /srv/docker-compose.yml && cd /srv && docker compose down || true"
+  ansible.builtin.shell: "test -f /srv/docker-compose.yml && cd /srv && docker compose down || true"
 
 - name: Set timezone to UTC
-  timezone:
-    name: UTC
+  ansible.builtin.timezone:
+    name: Etc/UTC
 
 - name: Install Docker Compose file
   ansible.builtin.copy:
@@ -23,7 +23,7 @@
     mode: 0600
 
 - name: Touch ACME challenge configuration file
-  file:
+  ansible.builtin.file:
     path: /opt/traefik/acme.json
     state: touch
     owner: root
@@ -31,4 +31,4 @@
     mode: 0400
 
 - name: Start all Docker containers
-  shell: "cd /srv && docker compose up -d"
+  ansible.builtin.shell: "cd /srv && docker compose up -d"

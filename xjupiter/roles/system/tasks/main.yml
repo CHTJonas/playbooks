@@ -28,7 +28,7 @@
   when: rpi.found
 
 - name: Set timezone to UTC
-  timezone:
+  ansible.builtin.timezone:
     name: Etc/UTC
 
 - name: Disable motd-news

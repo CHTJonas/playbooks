@@ -1,30 +1,45 @@
 ---
 - name: Install prerequisite packages
-  apt:
-    force_apt_get: yes
+  ansible.builtin.apt:
     install_recommends: no
-    name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
     update_cache: yes
     cache_valid_time: 3600
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - wget
 
 - name: Add Docker APT repository signing key
-  apt_key:
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    owner: root
+    group: root
+    mode: 0444
 
 - name: Add Docker APT repository source
-  apt_repository:
-    repo: deb https://download.docker.com/linux/ubuntu bionic stable
-    filename: docker
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/ubuntu
+    suites: '{{ ansible_distribution_release }}'
+    components: stable
+    architectures: amd64
+    signed_by: /etc/apt/keyrings/docker.asc
 
 - name: Install Docker
-  apt:
-    force_apt_get: yes
+  ansible.builtin.apt:
     install_recommends: no
-    name: "docker-ce docker-compose-plugin"
-    update_cache: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - docker-ce
+      - docker-compose-plugin
 
 - name: Ensure Docker service starts at boot
-  systemd:
+  ansible.builtin.systemd:
     name: docker
     state: started
     enabled: yes

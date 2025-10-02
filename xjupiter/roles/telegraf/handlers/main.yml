@@ -1,10 +1,12 @@
 ---
-- name: Reload telegraf
-  ansible.builtin.systemd:
-    name: telegraf
-    state: reloaded
-
 - name: Restart telegraf
   ansible.builtin.systemd:
     name: telegraf
     state: restarted
+  register: restart_telegraf
+
+- name: Reload telegraf
+  ansible.builtin.systemd:
+    name: telegraf
+    state: reloaded
+  when: "restart_telegraf is undefined or not restart_telegraf.changed or restart_telegraf.failed"

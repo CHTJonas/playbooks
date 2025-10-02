@@ -1,13 +1,15 @@
 ---
-- name: Reload Nginx
-  ansible.builtin.systemd:
-    state: reloaded
-    name: nginx
-
 - name: Restart Nginx
   ansible.builtin.systemd:
     state: restarted
     name: nginx
+  register: restart_nginx
+
+- name: Reload Nginx
+  ansible.builtin.systemd:
+    state: reloaded
+    name: nginx
+  when: "restart_nginx is undefined or not restart_nginx.changed or restart_nginx.failed"
 
 - name: Reload nftables
   ansible.builtin.systemd:

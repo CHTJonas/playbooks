@@ -1,13 +1,15 @@
 ---
-- name: Reload Apache
-  ansible.builtin.systemd:
-    state: reloaded
-    name: apache2
-
 - name: Restart Apache
   ansible.builtin.systemd:
     state: restarted
     name: apache2
+  register: restart_apache
+
+- name: Reload Apache
+  ansible.builtin.systemd:
+    state: reloaded
+    name: apache2
+  when: "restart_apache is undefined or not restart_apache.changed or restart_apache.failed"
 
 - name: Reload nftables
   ansible.builtin.systemd:

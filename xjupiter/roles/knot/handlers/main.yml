@@ -1,13 +1,15 @@
 ---
-- name: Reload Knot
-  ansible.builtin.systemd:
-    state: reloaded
-    name: knot
-
 - name: Restart Knot
   ansible.builtin.systemd:
     state: restarted
     name: knot
+  register: restart_knot
+
+- name: Reload Knot
+  ansible.builtin.systemd:
+    state: reloaded
+    name: knot
+  when: "restart_knot is undefined or not restart_knot.changed or restart_knot.failed"
 
 - name: Reload nftables
   ansible.builtin.systemd:

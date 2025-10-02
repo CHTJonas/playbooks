@@ -11,7 +11,5 @@ DATE="$YEAR$MONTH$(date '+%d%H%M%S')"
 umask 277
 tar -c /var/lib/knot /etc/knot | zstd --no-progress -o $DIR/knot-$DATE.tar.zstd
 
-sleep 5
 /usr/local/bin/mc --quiet --no-color cp "$DIR/knot-$DATE.tar.zstd" "s3/knot/$YEAR/$MONTH/"
-sleep 10
 rm -rf $DIR

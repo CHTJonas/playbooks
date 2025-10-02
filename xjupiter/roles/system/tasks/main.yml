@@ -25,7 +25,7 @@
   register: rpi
 
 - import_tasks: rpi.yml
-  when: rpi.found
+  when: rpi.found is defined and rpi.found >= 1
 
 - name: Set timezone to UTC
   ansible.builtin.timezone:

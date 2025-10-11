@@ -12,3 +12,7 @@
   ansible.builtin.systemd:
     state: restarted
     name: systemd-journald
+
+- name: Reload kernel parameters
+  command:
+    cmd: /usr/sbin/sysctl --system

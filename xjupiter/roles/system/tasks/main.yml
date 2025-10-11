@@ -6,6 +6,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+    - Reload kernel parameters
 
 - name: Check if GRUB is the bootloader
   stat:

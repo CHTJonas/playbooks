@@ -44,9 +44,9 @@
 
 	Header always set Alt-Svc "h2=\":443\"; ma=2592000;"
 {% if item.enablehsts is defined %}
-	Header always set Strict-Transport-Security "max-age=63072000"
+	Header always set Strict-Transport-Security "max-age=31536000"
 {% elif item.preloadhsts is defined %}
-	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+	Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 {% endif %}
 {% if item.enableexpectct is defined %}
 	Header always set Expect-CT "max-age=86400, enforce, report-uri=\"https://xjupiter.net/cgi-bin/beacon\""

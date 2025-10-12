@@ -43,9 +43,9 @@ server {
 	ssl_certificate_key /var/lib/dehydrated/certs/{{ item.servername }}/privkey.pem;
 
 {% if item.enablehsts is defined %}
-	add_header Strict-Transport-Security "max-age=63072000" always;
+	add_header Strict-Transport-Security "max-age=31536000" always;
 {% elif item.preloadhsts is defined %}
-	add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+	add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
 {% endif %}
 {% if item.enableexpectct is defined %}
 	add_header Expect-CT "max-age=86400, enforce, report-uri=\"https://xjupiter.net/cgi-bin/beacon\"" always;

@@ -49,11 +49,13 @@ frontend https-in
 {% for backend in haproxy_backends %}
 backend {{ backend.name }}-http
 	mode http
-	server {{ backend.name }} {{ backend.hostname }}:80 send-proxy-v2
+	server {{ backend.name }} {{ backend.hostname }}:80 {% if backend.proxy_http %}send-proxy-v2{% endif %}
+
 
 backend {{ backend.name }}-https
 	mode tcp
 	option ssl-hello-chk
-	server {{ backend.name }} {{ backend.hostname }}:443 send-proxy-v2
+	server {{ backend.name }} {{ backend.hostname }}:443 {% if backend.proxy_https %}send-proxy-v2{% endif %}
+
 
 {% endfor %}

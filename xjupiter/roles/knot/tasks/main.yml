@@ -1,10 +1,14 @@
 ---
-- name: Install Knot signing key
+- name: Add Knot APT repository signing key
   ansible.builtin.get_url:
     url: https://deb.knot-dns.cz/apt.gpg
     dest: /etc/apt/keyrings/knot.gpg
+    owner: root
+    group: root
+    mode: 0444
+    backup: yes
 
-- name: Install Knot repository
+- name: Add Knot APT repository
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot-latest/ {{ ansible_distribution_release }} main"
     filename: knot

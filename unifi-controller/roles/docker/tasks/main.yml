@@ -18,8 +18,9 @@
     owner: root
     group: root
     mode: 0444
+    backup: yes
 
-- name: Add Docker APT repository source
+- name: Add Docker APT repository
   ansible.builtin.deb822_repository:
     name: docker
     types: deb

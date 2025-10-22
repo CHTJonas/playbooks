@@ -21,3 +21,11 @@ $ ansible-playbook xjupiter.yml --check --diff --limit strephon
 $ ansible-playbook xjupiter.yml
 $ ansible-playbook xjupiter.yml --limit strephon
 ```
+
+## Notes
+
+Places where IP addresses are hardcoded:
+
+* `group_vars/*`
+* `roles/knot/files/knot.conf`
+* `roles/nginx/templates/vhost.conf.j2`

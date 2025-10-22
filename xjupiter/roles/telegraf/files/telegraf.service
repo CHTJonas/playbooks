@@ -1,7 +1,7 @@
 # This file is managed by Ansible
 
 [Unit]
-Description=The plugin-driven server agent for reporting metrics into InfluxDB
+Description=Telegraf reporting agent
 Documentation=https://github.com/influxdata/telegraf
 After=network.target
 

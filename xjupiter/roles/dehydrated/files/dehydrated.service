@@ -1,7 +1,7 @@
 # This file is managed by Ansible
 
 [Unit]
-Description=dehydrated ACME certificate renewal
+Description=dehydrated ACME certificate renewal script
 
 [Service]
 Type=oneshot

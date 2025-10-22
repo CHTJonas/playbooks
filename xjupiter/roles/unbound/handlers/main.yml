@@ -9,6 +9,11 @@
     state: reloaded
     name: nftables
 
+- name: Restart telegraf
+  ansible.builtin.systemd:
+    state: restarted
+    name: telegraf
+
 - name: Reload telegraf
   ansible.builtin.systemd:
     state: reloaded

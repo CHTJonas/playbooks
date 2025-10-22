@@ -44,6 +44,7 @@
     name: telegraf
     groups: unbound
     append: true
+  notify: Restart telegraf
 
 - name: Install Unbound input plugin for telegraf
   ansible.builtin.copy:

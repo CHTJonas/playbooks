@@ -1,0 +1,12 @@
+---
+- name: Restart ddnsd
+  ansible.builtin.systemd:
+    state: restarted
+    name: ddnsd
+  register: restart_ddnsd
+
+- name: Reload ddnsd
+  ansible.builtin.systemd:
+    state: reloaded
+    name: ddnsd
+  when: "restart_ddnsd is undefined or not restart_ddnsd.changed or restart_ddnsd.failed"

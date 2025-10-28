@@ -14,9 +14,8 @@
     autoremove: yes
     purge: yes
     pkg:
-      - opensmtpd
-      - exim
-      - exim4
+      - opensmtpd*
+      - exim*
 
 - name: Install generic mapping table file
   ansible.builtin.template:

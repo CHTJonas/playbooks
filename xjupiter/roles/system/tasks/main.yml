@@ -79,6 +79,14 @@
   notify:
     - Restart unattended-upgrades
 
+- name: Start unattended-upgrades and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: unattended-upgrades
+    enabled: yes
+    state: started
+    masked: no
+
 - name: Configure apticron
   ansible.builtin.copy:
     src: apticron.conf

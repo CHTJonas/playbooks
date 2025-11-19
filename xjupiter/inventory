@@ -8,6 +8,7 @@ hildebrand	ansible_user=root ansible_host=hildebrand.xjupiter.net
 blanche		ansible_user=root ansible_host=blanche.xjupiter.net
 gianetta	ansible_user=root ansible_host=gianetta.xjupiter.net
 psyche	ansible_user=root ansible_host=psyche.xjupiter.net
+phobos	ansible_user=root ansible_host=phobos.server.old-vic.jfdn.net
 charon	ansible_user=root ansible_host=charon.server.old-vic.jfdn.net
 
 [mythic]
@@ -25,4 +26,5 @@ gianetta
 psyche
 
 [old-vic]
+phobos
 charon

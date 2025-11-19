@@ -71,6 +71,11 @@
     - go-lg
     - httpdebugd
 
+- hosts: phobos
+  roles:
+    - unbound
+    - chrony
+
 - hosts: charon
   roles:
     - unbound

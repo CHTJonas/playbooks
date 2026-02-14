@@ -1,0 +1,11 @@
+- name: Remove some package bloat
+  ansible.builtin.apt:
+    state: absent
+    autoremove: yes
+    purge: yes
+    pkg:
+      - cifs-utils
+      - cloud-init
+      - gbd
+      - luajit
+      - manpages-dev

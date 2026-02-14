@@ -1,6 +1,19 @@
 ---
 - import_tasks: useful.yml
+
 - import_tasks: bloat.yml
+
+- name: Check if host is a Raspberry Pi
+  ansible.builtin.lineinfile:
+    path: /sys/firmware/devicetree/base/model
+    regexp: '.*Raspberry Pi.*'
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: rpi
+
+- import_tasks: rpi.yml
+  when: rpi.found is defined and rpi.found >= 1
 
 - name: Remove useless packages from the cache
   apt:

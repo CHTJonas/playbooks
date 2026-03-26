@@ -8,7 +8,7 @@
     group: root
     mode: 0755
   notify: Restart httpdebugd
-  when: ansible_architecture == 'x86_64'
+  when: ansible_facts["architecture"] == 'x86_64'
 
 - name: Download httpdebugd executable (arm64)
   ansible.builtin.get_url:
@@ -19,7 +19,7 @@
     group: root
     mode: 0755
   notify: Restart httpdebugd
-  when: ansible_architecture == 'aarch64'
+  when: ansible_facts["architecture"] == 'aarch64'
 
 - name: Install httpdebugd service unit file
   ansible.builtin.copy:

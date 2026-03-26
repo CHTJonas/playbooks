@@ -48,7 +48,7 @@
     owner: root
     group: root
     mode: 0755
-  when: ansible_architecture == 'x86_64'
+  when: ansible_facts["architecture"] == 'x86_64'
 
 - name: Download influx executable (arm64)
   ansible.builtin.get_url:
@@ -58,7 +58,7 @@
     owner: root
     group: root
     mode: 0755
-  when: ansible_architecture == 'aarch64'
+  when: ansible_facts["architecture"] == 'aarch64'
 
 - name: Download influxd executable (amd64)
   ansible.builtin.get_url:
@@ -69,7 +69,7 @@
     group: root
     mode: 0755
   notify: Restart influxdb
-  when: ansible_architecture == 'x86_64'
+  when: ansible_facts["architecture"] == 'x86_64'
 
 - name: Download influxd executable (arm64)
   ansible.builtin.get_url:
@@ -80,7 +80,7 @@
     group: root
     mode: 0755
   notify: Restart influxdb
-  when: ansible_architecture == 'aarch64'
+  when: ansible_facts["architecture"] == 'aarch64'
 
 - name: Install influxdb service unit file
   ansible.builtin.copy:

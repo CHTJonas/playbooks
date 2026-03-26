@@ -10,7 +10,7 @@
 
 - name: Add Knot APT repository
   ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot-latest/ {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot-latest/ {{ ansible_facts['distribution_release'] }} main"
     filename: knot
 
 - name: Install Knot server and utilities
@@ -113,7 +113,7 @@
     owner: root
     group: root
     mode: 0755
-  when: ansible_architecture == 'x86_64'
+  when: ansible_facts["architecture"] == 'x86_64'
 
 - name: Download mc executable (arm64)
   ansible.builtin.get_url:
@@ -123,7 +123,7 @@
     owner: root
     group: root
     mode: 0755
-  when: ansible_architecture == 'aarch64'
+  when: ansible_facts["architecture"] == 'aarch64'
 
 - name: Create mc config directory
   ansible.builtin.file:

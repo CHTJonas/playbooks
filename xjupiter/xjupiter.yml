@@ -22,7 +22,7 @@
     - timesyncd
     - getty
 
-- hosts: old-vic
+- hosts: oldvic
   roles:
     - resolvconf
     - timesyncd

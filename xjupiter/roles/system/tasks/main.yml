@@ -38,7 +38,7 @@
     name: 'motd-news'
     enabled: no
     masked: yes
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_facts["distribution"] == 'Ubuntu'
 
 - name: Install locales package
   ansible.builtin.apt:

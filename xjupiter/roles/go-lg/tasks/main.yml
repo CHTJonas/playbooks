@@ -8,7 +8,7 @@
     group: root
     mode: 0755
   notify: Restart go-lg
-  when: ansible_architecture == 'x86_64'
+  when: ansible_facts["architecture"] == 'x86_64'
 
 - name: Download go-lg executable (arm64)
   ansible.builtin.get_url:
@@ -19,7 +19,7 @@
     group: root
     mode: 0755
   notify: Restart go-lg
-  when: ansible_architecture == 'aarch64'
+  when: ansible_facts["architecture"] == 'aarch64'
 
 - name: Install go-lg service unit file
   ansible.builtin.copy:

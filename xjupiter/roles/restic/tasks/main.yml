@@ -31,7 +31,7 @@
     owner: root
     group: root
     mode: 0755
-  when: ansible_architecture == 'x86_64'
+  when: ansible_facts["architecture"] == 'x86_64'
 
 - name: Download restic executable (arm64)
   ansible.builtin.get_url:
@@ -41,7 +41,7 @@
     owner: root
     group: root
     mode: 0755
-  when: ansible_architecture == 'aarch64'
+  when: ansible_facts["architecture"] == 'aarch64'
 
 - name: Install systemd service file
   ansible.builtin.copy:

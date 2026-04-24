@@ -8,10 +8,10 @@ server {
 	listen 80 {% if item.proxyprotocol is defined %} proxy_protocol {% endif %};
 	listen [::]:80 {% if item.proxyprotocol is defined %} proxy_protocol {% endif %};
 	server_name {{ item.servername }};
-	{% if item.proxyprotocol is defined %}
+{% if item.proxyprotocol is defined %}
 	set_real_ip_from 2001:8b0:dc22:faff:5054:ff:fe74:4960/128;
 	real_ip_header proxy_protocol;
-	{% endif %}
+{% endif %}
 	root {{ item.documentroot }};
 
 	access_log /var/log/nginx/{{ item.servername }}_access.log;
@@ -29,10 +29,10 @@ server {
 	listen 443 ssl http2 {% if item.proxyprotocol is defined %} proxy_protocol {% endif %};
 	listen [::]:443 ssl http2 {% if item.proxyprotocol is defined %} proxy_protocol {% endif %};
 	server_name {{ item.servername }};
-	{% if item.proxyprotocol is defined %}
+{% if item.proxyprotocol is defined %}
 	set_real_ip_from 2001:8b0:dc22:faff:5054:ff:fe74:4960/128;
 	real_ip_header proxy_protocol;
-	{% endif %}
+{% endif %}
 	root {{ item.documentroot }};
 	keepalive_timeout 10;
 

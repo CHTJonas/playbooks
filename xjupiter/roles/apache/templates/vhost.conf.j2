@@ -48,9 +48,6 @@
 {% elif item.preloadhsts is defined %}
 	Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 {% endif %}
-{% if item.enableexpectct is defined %}
-	Header always set Expect-CT "max-age=86400, enforce, report-uri=\"https://xjupiter.net/cgi-bin/beacon\""
-{% endif %}
 </VirtualHost>
 {% endif %}
 

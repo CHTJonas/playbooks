@@ -47,9 +47,6 @@ server {
 {% elif item.preloadhsts is defined %}
 	add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
 {% endif %}
-{% if item.enableexpectct is defined %}
-	add_header Expect-CT "max-age=86400, enforce, report-uri=\"https://xjupiter.net/cgi-bin/beacon\"" always;
-{% endif %}
 
 	location / {
 		proxy_set_header X-Request-Id      $request_id;

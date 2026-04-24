@@ -22,6 +22,7 @@
       - git
       - hostname
       - htop
+      - iotop
       - less
       - lsof
       - make

@@ -85,7 +85,11 @@ server {
 
 		# Otherwise proxy to the application server
 		if (!-f $request_filename) {
+{% if item.proxy_https is defined %}
+			proxy_pass https://{{ item.servername | replace(".", "_") }};
+{% else %}
 			proxy_pass http://{{ item.servername | replace(".", "_") }};
+{% endif %}
 			break;
 		}
 	}

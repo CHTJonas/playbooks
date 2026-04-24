@@ -64,6 +64,10 @@
   roles:
     - apcupsd
 
+- hosts: melissa
+  roles:
+    - unifi-os
+
 - hosts: strephon
   roles:
     - dehydrated

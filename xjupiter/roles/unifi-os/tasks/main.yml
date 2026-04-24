@@ -1,0 +1,38 @@
+---
+- name: Install prerequisites for UniFi OS Server
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    pkg:
+      - python3-pexpect
+      - podman
+      - slirp4netns
+      - uidmap
+
+- name: Determine if UniFi OS Server needs updating
+  ansible.builtin.lineinfile:
+    path: /var/lib/uosserver/server.conf
+    line: "UOS_SERVER_VERSION=5.0.6"
+    create: yes
+  check_mode: yes
+  register: uos_version
+
+- import_tasks: install.yml
+  when: uos_version.changed
+
+- name: Start UniFi OS Server and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: uosserver
+    enabled: yes
+    state: started
+    masked: no
+
+- name: Install UniFi OS Server firewall rule
+  ansible.builtin.copy:
+    src: unifi-nft.conf
+    dest: /etc/nftables/unifi.conf
+    owner: root
+    group: root
+    mode: 0755
+  notify: Reload nftables

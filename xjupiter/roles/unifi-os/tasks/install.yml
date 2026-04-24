@@ -1,0 +1,33 @@
+- name: Download UniFi OS Server installer (amd64)
+  ansible.builtin.get_url:
+    url: https://fw-download.ubnt.com/data/unifi-os-server/1856-linux-x64-5.0.6-33f4990f-6c68-4e72-9d9c-477496c22450.6-x64
+    dest: /usr/local/bin/unifi-os-server-installer
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+    backup: yes
+  when: ansible_facts["architecture"] == 'x86_64'
+
+- name: Download UniFi OS Server installer (arm64)
+  ansible.builtin.get_url:
+    url: https://fw-download.ubnt.com/data/unifi-os-server/df5b-linux-arm64-5.0.6-f35e944c-f4b6-4190-93a8-be61b96c58f4.6-arm64
+    dest: /usr/local/bin/unifi-os-server-installer
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+    backup: yes
+  when: ansible_facts["architecture"] == 'aarch64'
+
+- name: Run UniFi OS Server installer
+  ansible.builtin.expect:
+    command: /usr/local/bin/unifi-os-server-installer
+    timeout: null
+    responses:
+        "^You are about to install UOS Server": "y"
+  register: uosserver_output
+
+- name: Display the installer output
+  ansible.builtin.debug:
+    msg: "{{ uosserver_output.stdout_lines }}"

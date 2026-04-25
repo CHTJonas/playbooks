@@ -20,14 +20,6 @@
 - import_tasks: install.yml
   when: uos_version.changed
 
-- name: Start UniFi OS Server and enable at boot
-  ansible.builtin.systemd:
-    daemon_reload: yes
-    name: uosserver
-    enabled: yes
-    state: started
-    masked: no
-
 - name: Install UniFi OS Server firewall rule
   ansible.builtin.copy:
     src: unifi-nft.conf
@@ -36,3 +28,27 @@
     group: root
     mode: 0755
   notify: Reload nftables
+
+- name: Install UniFi DNS bug fix script
+  ansible.builtin.copy:
+    src: unifi-dns-fix.sh
+    dest: /usr/local/scripts/unifi-dns-fix.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Run UniFi DNS bug fix script after service starts
+  ansible.builtin.copy:
+    src: dns-fix.conf
+    dest: /etc/systemd/system/uosserver.service.d/dns-fix.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start UniFi OS Server and enable at boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: uosserver
+    enabled: yes
+    state: started
+    masked: no

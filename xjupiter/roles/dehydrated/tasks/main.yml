@@ -55,7 +55,7 @@
 - name: Register dehydrated account with Let's Encrypt
   ansible.builtin.command:
     cmd: /usr/bin/dehydrated --register --accept-terms
-    creates: /etc/dehydrated/accounts/
+    creates: /var/lib/dehydrated/accounts/
 
 - name: Install systemd service file
   ansible.builtin.copy:

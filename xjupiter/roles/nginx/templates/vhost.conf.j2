@@ -43,8 +43,10 @@ server {
 	ssl_certificate_key /var/lib/dehydrated/certs/{{ item.servername }}/privkey.pem;
 
 {% if item.enablehsts is defined %}
+	proxy_hide_header Strict-Transport-Security;
 	add_header Strict-Transport-Security "max-age=31536000" always;
 {% elif item.preloadhsts is defined %}
+	proxy_hide_header Strict-Transport-Security;
 	add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
 {% endif %}
 

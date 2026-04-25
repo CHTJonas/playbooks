@@ -26,7 +26,6 @@
     mode: 0644
   with_items:
     - allow-override
-    - ocsp-stapling
     - proxy-protocol
   notify:
     - Reload Apache
@@ -41,7 +40,6 @@
     mode: 0644
   with_items:
     - allow-override
-    - ocsp-stapling
     - proxy-protocol
   notify:
     - Reload Apache

@@ -41,6 +41,7 @@ server {
 
 	ssl_certificate /var/lib/dehydrated/certs/{{ item.servername }}/fullchain.pem;
 	ssl_certificate_key /var/lib/dehydrated/certs/{{ item.servername }}/privkey.pem;
+	ssl_ecdh_curve X25519MLKEM768:X25519:prime256v1;
 
 {% if item.enablehsts is defined %}
 	proxy_hide_header Strict-Transport-Security;

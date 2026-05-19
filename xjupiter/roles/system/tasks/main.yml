@@ -9,6 +9,14 @@
   notify:
     - Reload kernel parameters
 
+- name: Install modprobe file
+  ansible.builtin.copy:
+    src: modprobe.conf
+    dest: /etc/modprobe.d/xjupiter.conf
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Check if GRUB is the bootloader
   stat:
     path: /etc/default/grub

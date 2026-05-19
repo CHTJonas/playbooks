@@ -152,3 +152,19 @@
     owner: root
     group: root
     mode: 0440
+
+- name: Install systemd service to disable kernel module loading
+  ansible.builtin.copy:
+    src: disable-module-loading.service
+    dest: /usr/local/lib/systemd/system/disable-module-loading.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable kernel module loading 60 seconds after boot
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    name: disable-module-loading
+    enabled: yes
+    state: started
+    masked: no

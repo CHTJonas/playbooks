@@ -1,0 +1,12 @@
+# This file is managed by Ansible
+
+[Unit]
+ConditionPathExists=/proc/sys/kernel/modules_disabled
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh -c '/usr/bin/sleep 60; /usr/bin/echo 1 > /proc/sys/kernel/modules_disabled'
+
+[Install]
+WantedBy=multi-user.target

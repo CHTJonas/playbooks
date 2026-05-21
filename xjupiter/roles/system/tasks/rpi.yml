@@ -2,8 +2,8 @@
 - name: Adjust Raspberry Pi Linux command line
   ansible.builtin.replace:
     path: /boot/firmware/cmdline.txt
-    regexp: '^(.+) consoleblank=0$'
-    replace: '\1 consoleblank=0'
+    regexp: '^(.+) consoleblank=0'
+    replace: '\1 consoleblank=0 systemd.ssh_auto=no'
 
 - name: Remove pi user sudoers config
   ansible.builtin.file:

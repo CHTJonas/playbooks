@@ -42,6 +42,15 @@
   notify:
     - Update GRUB
 
+- name: Disable systemd-ssh-generator
+  ansible.builtin.copy:
+    dest: /etc/default/grub.d/systemd-ssh-generator.cfg
+    content: |
+      GRUB_CMDLINE_LINUX="systemd.ssh_auto=no $GRUB_CMDLINE_LINUX"
+    mode: 0644
+  notify:
+    - Update GRUB
+
 - name: Set Linux boot parameters
   ansible.builtin.copy:
     dest: /etc/default/grub.d/xjupiter.cfg

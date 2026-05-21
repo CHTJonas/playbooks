@@ -6,7 +6,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/sh -c '/usr/bin/sleep 60; /usr/bin/echo 1 > /proc/sys/kernel/modules_disabled'
+ExecStart=/usr/bin/bash -c '(/usr/bin/sleep 60; /usr/bin/echo 1 > /proc/sys/kernel/modules_disabled) & disown'
 
 [Install]
 WantedBy=multi-user.target

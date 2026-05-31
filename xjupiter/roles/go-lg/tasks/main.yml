@@ -1,7 +1,7 @@
 ---
 - name: Download go-lg executable (amd64)
   ansible.builtin.get_url:
-    url: https://dl.charliejonas.co.uk/software/dist/go-lg-2.1.0/go-lg-linux-2.1.0-amd64
+    url: https://dl.charliejonas.co.uk/software/dist/go-lg-2.2.0/go-lg-linux-2.2.0-amd64
     dest: /usr/local/bin/go-lg
     force: yes
     owner: root
@@ -12,7 +12,7 @@
 
 - name: Download go-lg executable (arm64)
   ansible.builtin.get_url:
-    url: https://dl.charliejonas.co.uk/software/dist/go-lg-2.1.0/go-lg-linux-2.1.0-arm64
+    url: https://dl.charliejonas.co.uk/software/dist/go-lg-2.2.0/go-lg-linux-2.2.0-arm64
     dest: /usr/local/bin/go-lg
     force: yes
     owner: root

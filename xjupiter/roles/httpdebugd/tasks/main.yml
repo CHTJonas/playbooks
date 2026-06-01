@@ -1,7 +1,7 @@
 ---
 - name: Download httpdebugd executable (amd64)
   ansible.builtin.get_url:
-    url: https://dl.charliejonas.co.uk/software/dist/httpdebugd-0.4.0/httpdebugd-linux-0.4.0-amd64
+    url: https://dl.charliejonas.co.uk/software/dist/httpdebugd-0.5.0/httpdebugd-linux-0.5.0-amd64
     dest: /usr/local/bin/httpdebugd
     force: yes
     owner: root
@@ -12,7 +12,7 @@
 
 - name: Download httpdebugd executable (arm64)
   ansible.builtin.get_url:
-    url: https://dl.charliejonas.co.uk/software/dist/httpdebugd-0.4.0/httpdebugd-linux-0.4.0-arm64
+    url: https://dl.charliejonas.co.uk/software/dist/httpdebugd-0.5.0/httpdebugd-linux-0.5.0-arm64
     dest: /usr/local/bin/httpdebugd
     force: yes
     owner: root

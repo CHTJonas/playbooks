@@ -1,12 +1,11 @@
 strephon	ansible_user=root ansible_host=strephon.xjupiter.net
 casilda		ansible_user=root ansible_host=casilda.xjupiter.net
-florian		ansible_user=root ansible_host=florian.xjupiter.net
+# florian		ansible_user=root ansible_host=florian.xjupiter.net
 corcoran	ansible_user=root ansible_host=corcoran.xjupiter.net
 josephine	ansible_user=root ansible_host=josephine.xjupiter.net
 frederic	ansible_user=root ansible_host=frederic.xjupiter.net
 hildebrand	ansible_user=root ansible_host=hildebrand.xjupiter.net
 blanche		ansible_user=root ansible_host=blanche.xjupiter.net
-gianetta	ansible_user=root ansible_host=gianetta.xjupiter.net
 psyche	ansible_user=root ansible_host=psyche.xjupiter.net
 melissa	ansible_user=root ansible_host=melissa.xjupiter.net
 phobos	ansible_user=root ansible_host=phobos.server.old-vic.jfdn.net
@@ -17,13 +16,12 @@ strephon
 
 [latham]
 casilda
-florian
+# florian
 corcoran
 josephine
 frederic
 hildebrand
 blanche
-gianetta
 psyche
 melissa
 

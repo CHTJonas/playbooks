@@ -32,10 +32,10 @@
   roles:
     - virt
 
-- hosts: florian
-  roles:
-    - dehydrated
-    - nginx
+# - hosts: florian
+#   roles:
+#     - dehydrated
+#     - nginx
 
 - hosts: corcoran
   roles:

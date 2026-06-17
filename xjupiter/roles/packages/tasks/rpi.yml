@@ -9,4 +9,6 @@
       - gbd
       - luajit
       - manpages-dev
+      - rpi-connect
+      - rpi-connect*
       - wpasupplicant

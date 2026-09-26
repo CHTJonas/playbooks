@@ -37,7 +37,7 @@
     comment: Charlie Jonas
     uid: 1001
     group: chtjonas
-    groups: [sudo, adm]
+    groups: [adm, dialout, sudo, systemd-journal, users]
     shell: /bin/zsh
 
 - name: Add root SSH authorized_keys

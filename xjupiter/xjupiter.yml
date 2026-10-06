@@ -30,6 +30,7 @@
 
 - hosts: casilda
   roles:
+    - bare-metal
     - virt
 
 # - hosts: florian
@@ -62,6 +63,7 @@
 
 - hosts: psyche
   roles:
+    - bare-metal
     - apcupsd
 
 - hosts: melissa
@@ -79,10 +81,12 @@
 
 - hosts: phobos
   roles:
+    - bare-metal
     - unbound
     - chrony
 
 - hosts: charon
   roles:
+    - bare-metal
     - unbound
     - chrony

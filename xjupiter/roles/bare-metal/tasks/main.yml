@@ -1,9 +1,26 @@
 ---
-- name: Install packages for bare metal machines
+- name: Install common packages for bare metal machines
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - smartmontools
+
+- name: Install Intel microcode for bare metal machines
   ansible.builtin.apt:
     install_recommends: no
     update_cache: yes
     cache_valid_time: 3600
     pkg:
       - intel-microcode
-      - smartmontools
+  when: "'GenuineIntel' in ansible_processor"
+
+- name: Install AMD microcode for bare metal machines
+  ansible.builtin.apt:
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg:
+      - amd64-microcode
+  when: "'AuthenticAMD' in ansible_processor"

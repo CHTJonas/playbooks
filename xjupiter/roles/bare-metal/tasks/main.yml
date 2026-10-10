@@ -14,7 +14,7 @@
     cache_valid_time: 3600
     pkg:
       - intel-microcode
-  when: "'GenuineIntel' in ansible_processor"
+  when: "'GenuineIntel' in ansible_facts['processor']"
 
 - name: Install AMD microcode for bare metal machines
   ansible.builtin.apt:
@@ -23,4 +23,4 @@
     cache_valid_time: 3600
     pkg:
       - amd64-microcode
-  when: "'AuthenticAMD' in ansible_processor"
+  when: "'AuthenticAMD' in ansible_facts['processor']"

@@ -6,6 +6,7 @@
     pkg:
       - cifs-utils
       - cloud-init
+      - fontconfig-config
       - gbd
       - luajit
       - manpages-dev

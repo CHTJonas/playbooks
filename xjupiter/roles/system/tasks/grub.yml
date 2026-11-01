@@ -55,7 +55,7 @@
   ansible.builtin.copy:
     dest: /etc/default/grub.d/xjupiter.cfg
     content: |
-      GRUB_CMDLINE_LINUX="consoleblank=0 fsck.mode=force $GRUB_CMDLINE_LINUX"
+      GRUB_CMDLINE_LINUX="consoleblank=0 fsck.mode=force init_on_alloc=1 init_on_free=1 $GRUB_CMDLINE_LINUX"
     mode: 0644
   notify:
     - Update GRUB

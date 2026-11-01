@@ -6,6 +6,8 @@
     replace: '\1 {{ item }}'
   with_items:
   - "consoleblank=0"
+  - "init_on_alloc=1"
+  - "init_on_free=1"
   - "psi=1"
   - "systemd.ssh_auto=no"
   - "cfg80211.ieee80211_regdom=GB"

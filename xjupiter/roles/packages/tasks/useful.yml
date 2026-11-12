@@ -60,6 +60,7 @@
       - vim
       - wget
       - whois
+      - xxhash
       - xz-utils
       - zip
       - zsh-syntax-highlighting

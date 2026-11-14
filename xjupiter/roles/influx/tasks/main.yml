@@ -82,6 +82,26 @@
   notify: Restart influxdb
   when: ansible_facts["architecture"] == 'aarch64'
 
+- name: Download influx_inspect executable (amd64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/influx_inspect-1.13.2-amd64
+    dest: /usr/local/bin/influx_inspect
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_facts["architecture"] == 'x86_64'
+
+- name: Download influx_inspect executable (arm64)
+  ansible.builtin.get_url:
+    url: https://dl.xjupiter.net/binaries/influx_inspect-1.13.2-arm64
+    dest: /usr/local/bin/influx_inspect
+    force: yes
+    owner: root
+    group: root
+    mode: 0755
+  when: ansible_facts["architecture"] == 'aarch64'
+
 - name: Install influxdb service unit file
   ansible.builtin.copy:
     src: influxdb.service

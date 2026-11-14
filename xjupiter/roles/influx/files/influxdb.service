@@ -1,16 +1,16 @@
 # This file is managed by Ansible
 
 [Unit]
-Description=InfluxDB time series database
-Documentation=https://docs.influxdata.com/influxdb/
 After=network-online.target
 
 [Service]
+Type=forking
 User=influxdb
 Group=influxdb
 LimitNOFILE=65536
 ExecStart=/usr/local/bin/influxd run
 Restart=always
+KillMode=control-group
 
 [Install]
 WantedBy=multi-user.target

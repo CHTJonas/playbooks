@@ -1,19 +1,20 @@
 # This file is managed by Ansible
 
 [Unit]
-Description=Telegraf reporting agent
-Documentation=https://github.com/influxdata/telegraf
 After=network.target
 
 [Service]
+Type=notify
+NotifyAccess=all
 EnvironmentFile=-/etc/default/telegraf
 User=telegraf
 Group=telegraf
 ExecStart=/usr/local/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory /etc/telegraf/telegraf.d $TELEGRAF_OPTS
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-failure
+Restart=always
 RestartForceExitStatus=SIGPIPE
-KillMode=control-group
+KillMode=mixed
+LimitMEMLOCK=8M:8M
 
 [Install]
 WantedBy=multi-user.target

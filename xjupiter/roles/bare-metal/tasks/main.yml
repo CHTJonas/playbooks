@@ -5,6 +5,7 @@
     update_cache: yes
     cache_valid_time: 3600
     pkg:
+      - hdparm
       - smartmontools
 
 - name: Install Intel microcode for bare metal machines
